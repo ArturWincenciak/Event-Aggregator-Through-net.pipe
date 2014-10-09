@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TeoVincent.EventAggregator.Service.EventAggregatorMain">
+    <Position X="0.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACQAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>EventAggregatorMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeoVincent.EventAggregator.Service.EventAggregatorService">
+    <Position X="2.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAEAAAQAAABEAEgAAQCAQAAAAEESMAAAAAAAA=</HashCode>
+      <FileName>EventAggregatorService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TeoVincent.EventAggregator.Service.PluginsQueuedEvent">
+    <Position X="7.25" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAAAAAEAAAAAAAAAAQAAAAABAAAAAAAAABAAAA=</HashCode>
+      <FileName>PluginsQueuedEvent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="TeoVincent.EventAggregator.Service.IPluginsQueuedEvent">
+    <Position X="5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAAAAAEAAAAAAAAAAAAAAAABAAAAAAAAABAAAA=</HashCode>
+      <FileName>IPluginsQueuedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
