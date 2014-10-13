@@ -34,48 +34,48 @@ namespace TeoVincent.EventAggregator.Client
 {
     internal sealed class EventAggregator : IEventAggregator
     {
-        private readonly object m_lock = new object();
-        private readonly SynchronizationContext m_context;
-        private readonly Dictionary<Type, List<IListener>> m_listeners = new Dictionary<Type, List<IListener>>();
+        private readonly object syncLock = new object();
+        private readonly SynchronizationContext context;
+        private readonly Dictionary<Type, List<IListener>> listeners = new Dictionary<Type, List<IListener>>();
         
-        public EventAggregator(SynchronizationContext a_context)
+        public EventAggregator(SynchronizationContext context)
         {
-			m_context = a_context;
+			this.context = context;
         }
 
         /// <summary>
         /// Add a listener to list of listeners. This method will be call
         /// when the listener implements more then one interface of listener.
         /// </summary>
-        public void Subscribe(IListener a_listener)
+        public void Subscribe(IListener listener)
         {
-            ForEachListener(a_listener, Subscribe);
+            ForEachListener(listener, Subscribe);
         }
 
         /// <summary>
         /// Add a listener to list of listeners.
         /// </summary>
-        public void Subscribe<TEvent>(IListener<TEvent> a_listener) where TEvent : AEvent
+        public void Subscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
         {
-            Subscribe(typeof(TEvent), a_listener);
+            Subscribe(typeof(TEvent), listener);
         }
 
         /// <summary>
         /// Remove a listener form list of listeners. This method will be call
         /// when the listener implements more then one interface of listener.
         /// </summary>
-        /// <param name="a_listener">Słuchacz.</param>
-        public void Unsubscribe(IListener a_listener)
+        /// <param name="listener">Słuchacz.</param>
+        public void Unsubscribe(IListener listener)
         {
-			ForEachListener(a_listener, Unsubscribe);
+			ForEachListener(listener, Unsubscribe);
         }
 
         /// <summary>
         /// Remove a listener form list of listeners.
         /// </summary>
-        public void Unsubscribe<TEvent>(IListener<TEvent> a_listener) where TEvent : AEvent
+        public void Unsubscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
         {
-			Unsubscribe(typeof(TEvent), a_listener);
+			Unsubscribe(typeof(TEvent), listener);
         }
 
         /// <summary>
@@ -83,19 +83,19 @@ namespace TeoVincent.EventAggregator.Client
         /// implements interface parameterized this event type). This method
         /// parametrize automatically based on type of argument this method.
         /// </summary>
-        public void Publish<TEvent>(TEvent a_e) where TEvent : AEvent
+        public void Publish<TEvent>(TEvent e) where TEvent : AEvent
         {
-            lock (m_lock)
+            lock (syncLock)
             {
 				var typeOfEvent = typeof(TEvent);
 				
-				if (!m_listeners.ContainsKey(typeOfEvent))
+				if (!listeners.ContainsKey(typeOfEvent))
                     return;
 
-                foreach (var listener in m_listeners[typeOfEvent])
+                foreach (var listener in listeners[typeOfEvent])
                 {
                     var typedReference = (IListener<TEvent>)listener;
-                    m_context.Send(a_state => typedReference.Handle(a_e), null);
+                    context.Send(state => typedReference.Handle(e), null);
                 }
             }
         }
@@ -110,45 +110,45 @@ namespace TeoVincent.EventAggregator.Client
 			Publish(new TEvent());
         }
 
-        private void Unsubscribe(Type a_typeOfEvent, IListener a_listener)
+        private void Unsubscribe(Type typeOfEvent, IListener listener)
         {
-            lock (m_lock)
+            lock (syncLock)
             {
-                if (m_listeners.ContainsKey(a_typeOfEvent))
-                    m_listeners[a_typeOfEvent].Remove(a_listener);
+                if (listeners.ContainsKey(typeOfEvent))
+                    listeners[typeOfEvent].Remove(listener);
             }
         }
 
-        private void Subscribe(Type a_typeOfEvent, IListener a_listener)
+        private void Subscribe(Type typeOfEvent, IListener listener)
         {
-            lock (m_lock)
+            lock (syncLock)
             {
-                if (!m_listeners.ContainsKey(a_typeOfEvent))
-                    m_listeners.Add(a_typeOfEvent, new List<IListener>());
+                if (!listeners.ContainsKey(typeOfEvent))
+                    listeners.Add(typeOfEvent, new List<IListener>());
 
-                if (m_listeners[a_typeOfEvent].Contains(a_listener))
+                if (listeners[typeOfEvent].Contains(listener))
                     throw new InvalidOperationException("You're not supposed to register to the same event twice");
 
-                m_listeners[a_typeOfEvent].Add(a_listener);
+                listeners[typeOfEvent].Add(listener);
             }
         }
         
-        private static void ForEachListener(IListener a_listener, Action<Type, IListener> a_action)
+        private static void ForEachListener(IListener listener, Action<Type, IListener> action)
         {
             var listenerTypeName = typeof(IListener).Name;
 
-            foreach (var interfaceType in a_listener.GetType().GetInterfaces().Where(a_i => a_i.Name.StartsWith(listenerTypeName)))
+            foreach (var interfaceType in listener.GetType().GetInterfaces().Where(i => i.Name.StartsWith(listenerTypeName)))
             {
                 Type typeOfEvent = GetEventType(interfaceType);
 
                 if (typeOfEvent != null)
-                    a_action(typeOfEvent, a_listener);
+                    action(typeOfEvent, listener);
             }
         }
 
-        private static Type GetEventType(Type a_type)
+        private static Type GetEventType(Type type)
         {
-            return a_type.GetGenericArguments().Any() ? a_type.GetGenericArguments()[0] : null;
+            return type.GetGenericArguments().Any() ? type.GetGenericArguments()[0] : null;
         }
     }
 }

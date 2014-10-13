@@ -30,7 +30,7 @@ namespace TeoVincent.HostEventAggregator
 {
     class Program
     {
-        static void Main(string[] a_args)
+        static void Main(string[] args)
         {
             var eaMain = new EventAggregatorMain();
             eaMain.InitPlugin();

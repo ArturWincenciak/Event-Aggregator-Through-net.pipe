@@ -31,7 +31,7 @@ namespace TeoVincent.TTSExampleApp
 {
     class Program
     {
-        static void Main(string[] a_args)
+        static void Main(string[] args)
         {
             Console.WriteLine("TTSExampleApp starting ...");
             

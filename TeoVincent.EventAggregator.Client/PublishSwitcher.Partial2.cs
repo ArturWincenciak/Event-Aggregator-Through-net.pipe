@@ -30,12 +30,12 @@ namespace TeoVincent.EventAggregator.Client
 {
 	static public partial class PublishSwitcher
 	{
-		static public bool PublishKnowTypePartial_2(AEvent a_e)
+		static public bool PublishKnowTypePartial_2(AEvent e)
 		{
-			if (a_e.ChildType == typeof(DesiredWavesEvent).Name)
-				EventAggregatorSingleton.Instance.Publish((DesiredWavesEvent)a_e);
-			else if (a_e.ChildType == typeof(AddedNewIvrEvent).Name)
-				EventAggregatorSingleton.Instance.Publish((AddedNewIvrEvent)a_e);
+			if (e.ChildType == typeof(DesiredWavesEvent).Name)
+				EventAggregatorSingleton.Instance.Publish((DesiredWavesEvent)e);
+			else if (e.ChildType == typeof(AddedNewIvrEvent).Name)
+				EventAggregatorSingleton.Instance.Publish((AddedNewIvrEvent)e);
             else
                 return false;
 

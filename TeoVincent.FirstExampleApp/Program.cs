@@ -33,7 +33,7 @@ namespace TeoVincent.FirstExampleApp
 {
     class Program
     {
-        static void Main(string[] a_args)
+        static void Main(string[] args)
         {
             Console.WriteLine("FirstExampleApp starting ...");
 

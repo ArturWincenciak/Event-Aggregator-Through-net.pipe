@@ -37,41 +37,41 @@ namespace TeoVincent.EventAggregator.Client
         : DuplexClientBase<IEventAggregatorService>
         , IEventAggregatorService
     {
-		public EventAggregatorServiceProxy(InstanceContext a_eventCntx, Binding a_binding, EndpointAddress a_remoteAddress) :
-			base(a_eventCntx, a_binding, a_remoteAddress)
+		public EventAggregatorServiceProxy(InstanceContext eventCntx, Binding binding, EndpointAddress remoteAddress) :
+			base(eventCntx, binding, remoteAddress)
 		{
 		}
 
     	/// <summary>
         /// Example test method. Convert int to string.
         /// </summary>
-        public string GetData(int a_value)
+        public string GetData(int value)
         {
-            return Channel.GetData(a_value);
+            return Channel.GetData(value);
         }
 
         /// <summary>
         /// Save appdomain in servis side colection. Subscribe for callbeck event.
         /// </summary>
-        public void SubscribePlugin(string a_name)
+        public void SubscribePlugin(string name)
         {
-			Channel.SubscribePlugin(a_name);
+			Channel.SubscribePlugin(name);
         }
 
         /// <summary>
         /// Remove appdomain form service side collection. Unsubscribe from callback event.
         /// </summary>
-        public void UnsubscribePlugin(string a_name)
+        public void UnsubscribePlugin(string name)
         {
-			Channel.UnsubscribePlugin(a_name);
+			Channel.UnsubscribePlugin(name);
         }
 
         /// <summary>
         /// Broadcast event in each subscribed appdomains.
         /// </summary>
-        public void Publish(AEvent a_e)
+        public void Publish(AEvent e)
         {
-			Channel.Publish(a_e);
+			Channel.Publish(e);
         }
     }
 }

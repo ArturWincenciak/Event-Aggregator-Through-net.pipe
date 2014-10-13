@@ -33,8 +33,8 @@ namespace TeoVincent.EventAggregator.Common
         /// Publish an event.
         /// </summary>
         /// <typeparam name="TEvent">Type of event.</typeparam>
-        /// <param name="a_e">Instance of event.</param>
-        void Publish<TEvent>(TEvent a_e) where TEvent : AEvent;
+        /// <param name="e">Instance of event.</param>
+        void Publish<TEvent>(TEvent e) where TEvent : AEvent;
 
         /// <summary>
         /// Publish event without sending instance of event object.
@@ -45,27 +45,27 @@ namespace TeoVincent.EventAggregator.Common
         /// <summary>
         /// Add a listener to collection of listeners.
         /// </summary>
-        /// <param name="a_listener">Listener.</param>
-        void Subscribe(IListener a_listener);
+        /// <param name="listener">Listener.</param>
+        void Subscribe(IListener listener);
 
         /// <summary>
         /// Remove a listener form collection of listeners.
         /// </summary>
-        /// <param name="a_listener">Listener.</param>
-        void Unsubscribe(IListener a_listener);
+        /// <param name="listener">Listener.</param>
+        void Unsubscribe(IListener listener);
 
         /// <summary>
         /// Add a listener to collection of listeners.
         /// </summary>
         /// <typeparam name="TEvent">Type of event.</typeparam>
-        /// <param name="a_listener">Listener.</param>
-        void Subscribe<TEvent>(IListener<TEvent> a_listener) where TEvent : AEvent;
+        /// <param name="listener">Listener.</param>
+        void Subscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent;
 
         /// <summary>
         /// Remove a listener form collection of listeners.
         /// </summary>
         /// <typeparam name="TEvent">Type of event.</typeparam>
-        /// <param name="a_listener">Listener.</param>
-        void Unsubscribe<TEvent>(IListener<TEvent> a_listener) where TEvent : AEvent;
+        /// <param name="listener">Listener.</param>
+        void Unsubscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent;
     }
 }

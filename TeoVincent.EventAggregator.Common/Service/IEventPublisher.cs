@@ -37,6 +37,6 @@ namespace TeoVincent.EventAggregator.Common.Service
         /// Callback from service which informs each appdomain in the collection of appdomains.
         /// </summary>
         [OperationContract(IsOneWay = true)]
-        void Publish(AEvent a_e);
+        void Publish(AEvent e);
     }
 }

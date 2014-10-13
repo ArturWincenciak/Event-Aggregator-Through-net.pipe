@@ -34,15 +34,15 @@ namespace TeoVincent.EventAggregator.Common.Events.Example
         [DataMember]
         public string Data
         {
-            get { return m_strExampleData; }
-            set { m_strExampleData = value; }
+            get { return strExampleData; }
+            set { strExampleData = value; }
         }
 
         public MyAnotherExampleEvent()
             : base(typeof(MyAnotherExampleEvent).Name)
         { }
 
-        private string m_strExampleData = "Event -->> MyAnotherExampleEvent.";
+        private string strExampleData = "Event -->> MyAnotherExampleEvent.";
     }
 
     [DataContract]
@@ -51,8 +51,8 @@ namespace TeoVincent.EventAggregator.Common.Events.Example
         [DataMember]
         public object Data
         {
-            get { return m_data; }
-            set { m_data = value; }
+            get { return data; }
+            set { data = value; }
         }
         
         public MyNewOwnEvent() 
@@ -60,6 +60,6 @@ namespace TeoVincent.EventAggregator.Common.Events.Example
         {
         }
 
-        private object m_data;
+        private object data;
     }
 }

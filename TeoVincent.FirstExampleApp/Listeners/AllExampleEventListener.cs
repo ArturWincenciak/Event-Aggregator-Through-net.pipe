@@ -35,22 +35,22 @@ namespace TeoVincent.FirstExampleApp.Listeners
           , IListener<MyOneOtherExampleEvent>
           , IListener<TestTeoVincentEvent>
     {
-        public void Handle(MyAnotherExampleEvent a_receivedEvent)
+        public void Handle(MyAnotherExampleEvent receivedEvent)
         {
             Console.WriteLine("\nAll example listener handle MyAnotherExampleEvent event.");
         }
 
-        public void Handle(MyExampleEvent a_receivedEvent)
+        public void Handle(MyExampleEvent receivedEvent)
         {
             Console.WriteLine("\nAll example listener handle MyExampleEvent event.");
         }
 
-        public void Handle(MyOneOtherExampleEvent a_receivedEvent)
+        public void Handle(MyOneOtherExampleEvent receivedEvent)
         {
             Console.WriteLine("\nAll example listener handle MyOneOtherExampleEvent event.");
         }
 
-        public void Handle(TestTeoVincentEvent a_receivedEvent)
+        public void Handle(TestTeoVincentEvent receivedEvent)
         {
             Console.WriteLine("\nAll example listener handle TestTeoVincentEvent event.");
         }
