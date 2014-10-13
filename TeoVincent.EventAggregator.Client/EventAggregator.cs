@@ -26,9 +26,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using TeoVincent.EventAggregator.Common;
 using TeoVincent.EventAggregator.Common.Events;
+
+[assembly: InternalsVisibleTo("TeoVincent.EventAggregator.Client.UnitTests")]
 
 namespace TeoVincent.EventAggregator.Client
 {

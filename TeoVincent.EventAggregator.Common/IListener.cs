@@ -36,7 +36,7 @@ namespace TeoVincent.EventAggregator.Common
     /// Parameterized listener.
     /// </summary>
     /// <typeparam name="TEvent">Type of Event</typeparam>
-    public interface IListener<in TEvent> : IListener where TEvent : AEvent
+    public interface IListener<in TEvent> : IListener
     {
         /// <summary>
         /// Call this method (by IEventAggregator) to inform the listener about an events.
