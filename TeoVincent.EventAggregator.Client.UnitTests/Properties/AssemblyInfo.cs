@@ -3,7 +3,7 @@
 // 
 // Copyright (c) 2014 TeoVincent Artur Wincenciak
 // TeoVincent.EventAggregator2013
-// TeoVincent.EventAggregator.Client
+// TeoVincent.EventAggregator.Client.UnitTests
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
