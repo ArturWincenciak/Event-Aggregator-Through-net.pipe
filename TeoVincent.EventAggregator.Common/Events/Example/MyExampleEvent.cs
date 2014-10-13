@@ -33,14 +33,14 @@ namespace TeoVincent.EventAggregator.Common.Events.Example
         [DataMember]
         public string ExampleData
         {
-            get { return m_strExampleData; }
-            set { m_strExampleData = value; }
+            get { return strExampleData; }
+            set { strExampleData = value; }
         }
 
         public MyExampleEvent()
             : base(typeof(MyExampleEvent).Name)
         { }
 
-        private string m_strExampleData = "Event ==>> MyExampleEvent.";
+        private string strExampleData = "Event ==>> MyExampleEvent.";
     }
 }

@@ -38,19 +38,19 @@ namespace TeoVincent.EventAggregator.Client
         {
             get
             {
-                if (s_eaInstanceEventAggregator == null)
+                if (eaInstanceEventAggregator == null)
                 {
-                    lock (s_syncRoot)
+                    lock (syncRoot)
                     {
-                        s_eaInstanceEventAggregator = new EventAggregator(new SynchronizationContext());
+                        eaInstanceEventAggregator = new EventAggregator(new SynchronizationContext());
                     }
                 }
 
-                return s_eaInstanceEventAggregator;
+                return eaInstanceEventAggregator;
             }
         }
 
-        private static volatile EventAggregator s_eaInstanceEventAggregator;
-        private static readonly object s_syncRoot = new Object();
+        private static volatile EventAggregator eaInstanceEventAggregator;
+        private static readonly object syncRoot = new Object();
     }
 }

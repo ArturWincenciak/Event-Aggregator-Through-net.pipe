@@ -34,22 +34,22 @@ namespace TeoVincent.EventAggregator.Client
 	/// </summary>
 	public sealed class EventAggregatorClient
 	{
-        private static readonly object s_objSyncRoot = new Object();
-        private static volatile EventAggregatorClient s_eaInstance;
+        private static readonly object objSyncRoot = new Object();
+        private static volatile EventAggregatorClient eaInstance;
         
 		public static EventAggregatorClient Instance
 		{
 			get
 			{
-				if (s_eaInstance == null)
+				if (eaInstance == null)
 				{
-					lock (s_objSyncRoot)
+					lock (objSyncRoot)
 					{
-						s_eaInstance = new EventAggregatorClient();
+						eaInstance = new EventAggregatorClient();
 					}
 				}
 
-				return s_eaInstance;
+				return eaInstance;
 			}
 		}
 
@@ -58,46 +58,46 @@ namespace TeoVincent.EventAggregator.Client
 		/// <summary>
 		/// Example method.
 		/// </summary>
-		public string GetData(int a_value)
+		public string GetData(int value)
 		{
-			return EventAggregatorClientManage.Instance.GetData(a_value);
+			return EventAggregatorClientManage.Instance.GetData(value);
 		}
 
 		/// <summary>
 		/// Subscribe plug in (appdomain) for listening events.
 		/// </summary>
-		/// <param name="a_strName">Name of plugin. Have to be unique.</param>
-		public void SubscribePlugin(string a_strName)
+		/// <param name="strName">Name of plugin. Have to be unique.</param>
+		public void SubscribePlugin(string strName)
 		{
-			EventAggregatorClientManage.Instance.SubscribePlugin(a_strName);
+			EventAggregatorClientManage.Instance.SubscribePlugin(strName);
 		}
 
 		/// <summary>
         /// Unsubscribe plug in (appdomain) for listening events.
 		/// </summary>
-        /// <param name="a_strName">Name of plugin.</param>
-		public void UnsubscribePlugin(string a_strName)
+        /// <param name="strName">Name of plugin.</param>
+		public void UnsubscribePlugin(string strName)
 		{
-			EventAggregatorClientManage.Instance.UnsubscribePlugin(a_strName);
+			EventAggregatorClientManage.Instance.UnsubscribePlugin(strName);
 		}
 
 		/// <summary>
 		/// Publish event between all plugins (appdomains) using net.pipe.
 		/// </summary>
-		/// <param name="a_e">Event</param>
+		/// <param name="e">Event</param>
 		/// <example>EventAggregatorClient.Instance.GlobalPublish(new SomeEvent());</example>
-		public void GlobalPublish(AEvent a_e)
+		public void GlobalPublish(AEvent e)
 		{
-			EventAggregatorClientManage.Instance.GlobalPublish(a_e);
+			EventAggregatorClientManage.Instance.GlobalPublish(e);
 		}
 
 		#endregion IEventAggregatorService
 
 		#region IEventAggregator
 
-		public void LocalPublish<TEvent>(TEvent a_message) where TEvent : AEvent, new()
+		public void LocalPublish<TEvent>(TEvent message) where TEvent : AEvent, new()
 		{
-			EventAggregatorSingleton.Instance.Publish(a_message);
+			EventAggregatorSingleton.Instance.Publish(message);
 		}
 
 		public void LocalPublish<TEvent>() where TEvent : AEvent, new()
@@ -105,24 +105,24 @@ namespace TeoVincent.EventAggregator.Client
 			EventAggregatorSingleton.Instance.Publish<TEvent>();
 		}
 
-		public void Subscribe(IListener a_listener)
+		public void Subscribe(IListener listener)
 		{
-			EventAggregatorSingleton.Instance.Subscribe(a_listener);
+			EventAggregatorSingleton.Instance.Subscribe(listener);
 		}
 
-		public void Unsubscribe(IListener a_listener)
+		public void Unsubscribe(IListener listener)
 		{
-			EventAggregatorSingleton.Instance.Unsubscribe(a_listener);
+			EventAggregatorSingleton.Instance.Unsubscribe(listener);
 		}
 
-		public void Subscribe<TEvent>(IListener<TEvent> a_listener) where TEvent : AEvent
+		public void Subscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
 		{
-			EventAggregatorSingleton.Instance.Subscribe(a_listener);
+			EventAggregatorSingleton.Instance.Subscribe(listener);
 		}
 
-		public void Unsubscribe<TEvent>(IListener<TEvent> a_listener) where TEvent : AEvent
+		public void Unsubscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
 		{
-			EventAggregatorSingleton.Instance.Unsubscribe(a_listener);
+			EventAggregatorSingleton.Instance.Unsubscribe(listener);
 		}
 
 		#endregion IEventAggregator

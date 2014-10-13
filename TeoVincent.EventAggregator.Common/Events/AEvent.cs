@@ -44,8 +44,8 @@ namespace TeoVincent.EventAggregator.Common.Events
         [DataMember]
         public string ChildType
         {
-            get { return m_strChildType; }
-            set { m_strChildType = value; }
+            get { return strChildType; }
+            set { strChildType = value; }
         }
 
         /// <summary>
@@ -54,8 +54,8 @@ namespace TeoVincent.EventAggregator.Common.Events
         [DataMember]
         public DateTime When
         {
-            get { return m_dtWhen; }
-            set { m_dtWhen = value; }
+            get { return dtWhen; }
+            set { dtWhen = value; }
         }
 
 		/// <summary>
@@ -65,52 +65,52 @@ namespace TeoVincent.EventAggregator.Common.Events
 		[DataMember]
     	public Guid ID
     	{
-			get { return m_id; }
-			set { m_id = value; }
+			get { return id; }
+			set { id = value; }
     	}
 
-        protected AEvent(string a_strChildType)
-            : this(a_strChildType, DateTime.Now)
+        protected AEvent(string strChildType)
+            : this(strChildType, DateTime.Now)
         { }
 
-        protected AEvent(string a_strChildType, DateTime a_dtWhen)
+        protected AEvent(string strChildType, DateTime dtWhen)
         {
-            m_strChildType = a_strChildType;
-            m_dtWhen = a_dtWhen;
-        	m_id = Guid.NewGuid();
+            this.strChildType = strChildType;
+            this.dtWhen = dtWhen;
+        	id = Guid.NewGuid();
         }
 
-		public override bool Equals(object a_obj)
+		public override bool Equals(object obj)
 		{
-			if (ReferenceEquals(null, a_obj)) 
+			if (ReferenceEquals(null, obj)) 
 				return false;
 			
-			if (ReferenceEquals(this, a_obj)) 
+			if (ReferenceEquals(this, obj)) 
 				return true;
 
-			if ((a_obj is AEvent) == false) 
+			if ((obj is AEvent) == false) 
 				return false;
 			
-			return Equals((AEvent)a_obj);
+			return Equals((AEvent)obj);
 		}
 
-    	public bool Equals(AEvent a_other)
+    	public bool Equals(AEvent other)
     	{
-            if (ReferenceEquals(null, a_other)) 
+            if (ReferenceEquals(null, other)) 
 				return false;
     		
-			if (ReferenceEquals(this, a_other)) 
+			if (ReferenceEquals(this, other)) 
 				return true;
 
-			if (ChildType != a_other.ChildType)
+			if (ChildType != other.ChildType)
 				return false;
     		
-			return a_other.m_id.Equals(m_id);
+			return other.id.Equals(id);
     	}
 
     	public override int GetHashCode()
     	{
-    	    return m_id.GetHashCode();
+    	    return id.GetHashCode();
     	}
 
 		public override string ToString()
@@ -118,8 +118,8 @@ namespace TeoVincent.EventAggregator.Common.Events
 			return string.Format("(EVENT={0}; WHEN={1}.{2}; ID={3})", ChildType, When, When.Millisecond, ID);
 		}
 
-        private string m_strChildType;
-        private DateTime m_dtWhen;
-        private Guid m_id;
+        private string strChildType;
+        private DateTime dtWhen;
+        private Guid id;
     }
 }

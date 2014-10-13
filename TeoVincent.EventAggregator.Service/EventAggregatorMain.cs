@@ -39,8 +39,8 @@ namespace TeoVincent.EventAggregator.Service
             try
             {
                 Console.WriteLine("EventAggregatorService service starting.");
-                m_host = new ServiceHost(typeof(EventAggregatorService));
-                m_host.Open();
+                host = new ServiceHost(typeof(EventAggregatorService));
+                host.Open();
                 Console.WriteLine("EventAggregatorService service started.");
             }
             catch (Exception ex)
@@ -54,8 +54,8 @@ namespace TeoVincent.EventAggregator.Service
         {
             try
             {
-                if(m_host != null)
-                    m_host.Close();
+                if(host != null)
+                    host.Close();
             }
             catch (Exception ex)
             {
@@ -64,11 +64,11 @@ namespace TeoVincent.EventAggregator.Service
             }
             finally
             {
-                if (m_host != null) 
-                    m_host.Abort();
+                if (host != null) 
+                    host.Abort();
             }
         }
 
-        private ServiceHost m_host;
+        private ServiceHost host;
     }
 }

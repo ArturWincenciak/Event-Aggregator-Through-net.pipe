@@ -30,18 +30,18 @@ namespace TeoVincent.EventAggregator.Client
 {
 	static public partial class PublishSwitcher
 	{
-		static public bool PublishKnowTypePartial_1(AEvent a_e)
+		static public bool PublishKnowTypePartial_1(AEvent e)
 		{
-			if (a_e.ChildType == typeof(MyAnotherExampleEvent).Name)
-				EventAggregatorSingleton.Instance.Publish((MyAnotherExampleEvent)a_e);
-			else if (a_e.ChildType == typeof(MyExampleEvent).Name)
-				EventAggregatorSingleton.Instance.Publish((MyExampleEvent)a_e);
-			else if (a_e.ChildType == typeof(MyOneOtherExampleEvent).Name)
-				EventAggregatorSingleton.Instance.Publish((MyOneOtherExampleEvent)a_e);
-            else if (a_e.ChildType == typeof(TestTeoVincentEvent).Name)
-                EventAggregatorSingleton.Instance.Publish((TestTeoVincentEvent)a_e);
-            else if (a_e.ChildType == typeof(MyNewOwnEvent).Name)
-                EventAggregatorSingleton.Instance.Publish((MyNewOwnEvent)a_e);
+			if (e.ChildType == typeof(MyAnotherExampleEvent).Name)
+				EventAggregatorSingleton.Instance.Publish((MyAnotherExampleEvent)e);
+			else if (e.ChildType == typeof(MyExampleEvent).Name)
+				EventAggregatorSingleton.Instance.Publish((MyExampleEvent)e);
+			else if (e.ChildType == typeof(MyOneOtherExampleEvent).Name)
+				EventAggregatorSingleton.Instance.Publish((MyOneOtherExampleEvent)e);
+            else if (e.ChildType == typeof(TestTeoVincentEvent).Name)
+                EventAggregatorSingleton.Instance.Publish((TestTeoVincentEvent)e);
+            else if (e.ChildType == typeof(MyNewOwnEvent).Name)
+                EventAggregatorSingleton.Instance.Publish((MyNewOwnEvent)e);
 			else
 				return false;
 

@@ -46,14 +46,14 @@ namespace TeoVincent.EventAggregator.Client
         /// generics type. We have to check the type by property with name of type. We wont to
         /// check type during system is runing.
         /// </summary>
-        public void Publish(AEvent a_e)
+        public void Publish(AEvent e)
         {
         	try
         	{
 				if
 				(
-					PublishSwitcher.PublishKnowTypePartial_1(a_e) == false &&
-					PublishSwitcher.PublishKnowTypePartial_2(a_e) == false
+					PublishSwitcher.PublishKnowTypePartial_1(e) == false &&
+					PublishSwitcher.PublishKnowTypePartial_2(e) == false
 				)
 				{
                     throw new Exception("NEVER HERE ! EventPublisher : IEventPublisher >> PublishKnowTypePartial_1 >> else ...");
@@ -62,7 +62,7 @@ namespace TeoVincent.EventAggregator.Client
         	catch (Exception ex)
         	{
                 Console.WriteLine(string.Format("Exception during: EventPublisher : IEventPublisher >> Publish({0}); MyMessage: {1}; Message: {2}",
-                    a_e, "This may be due to erroneous implement the constructor of the event. This event will no longer redistributed!", ex.Message), ex);
+                    e, "This may be due to erroneous implement the constructor of the event. This event will no longer redistributed!", ex.Message), ex);
         	}
         }
     }

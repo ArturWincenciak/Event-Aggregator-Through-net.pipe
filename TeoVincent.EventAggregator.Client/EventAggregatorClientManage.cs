@@ -39,35 +39,35 @@ namespace TeoVincent.EventAggregator.Client
 		{
 			get
 			{
-				if (s_eaInstance == null)
+				if (eaInstance == null)
 				{
-					lock (s_objSyncRoot)
+					lock (objSyncRoot)
 					{
-						s_eaInstance = new EventAggregatorClientManage();
+						eaInstance = new EventAggregatorClientManage();
 					}
 				}
 
-				return s_eaInstance;
+				return eaInstance;
 			}
 		}
 
         /// <summary>
         /// Example test method. Convert int to string.
         /// </summary>
-		public string GetData(int a_value)
+		public string GetData(int value)
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
 				try
 				{
 					if (ServiceIsOpened())
-						return s_eaServiceProxy.GetData(a_value);
+						return eaServiceProxy.GetData(value);
 
-                    return "Value is " + a_value;
+                    return "Value is " + value;
 				}
 				catch (Exception ex)
 				{
-                    Console.WriteLine(String.Format("Exception during GetData({0}). Message: {1}.", a_value, ex.Message), ex);
+                    Console.WriteLine(String.Format("Exception during GetData({0}). Message: {1}.", value, ex.Message), ex);
 					Init();
 					return String.Empty;
 				}
@@ -78,12 +78,12 @@ namespace TeoVincent.EventAggregator.Client
         /// Save appdomain in service side collection. Subscribe for callback event.
         /// Implicitly there is creating a client service if the client is not open or null.
         /// </summary>
-		public void SubscribePlugin(string a_strName, int a_interval = 3600000)
+		public void SubscribePlugin(string strName, int interval = 3600000)
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
-				SetPluginName(a_strName);
-				InitSubscribePluginTimer(a_interval);
+				SetPluginName(strName);
+				InitSubscribePluginTimer(interval);
 
 				try
 				{
@@ -91,11 +91,11 @@ namespace TeoVincent.EventAggregator.Client
 						return;
 	
 
-					s_eaServiceProxy.SubscribePlugin(s_pluginName);
+					eaServiceProxy.SubscribePlugin(pluginName);
 				}
 				catch (Exception ex)
 				{
-                    Console.WriteLine(String.Format("Exception during SubscribePlugin({0}). Message: {1}. Will be init or next attempt will be after {0} milisecond.", a_strName, ex.Message), ex);
+                    Console.WriteLine(String.Format("Exception during SubscribePlugin({0}). Message: {1}. Will be init or next attempt will be after {0} milisecond.", strName, ex.Message), ex);
 					Init();
 				}
 			}
@@ -104,27 +104,27 @@ namespace TeoVincent.EventAggregator.Client
         /// <summary>
         /// Remove appdomain form service side collection. Unsubscribe from callback event.
         /// </summary>
-		public void UnsubscribePlugin(string a_strName)
+		public void UnsubscribePlugin(string strName)
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
 				try
 				{
 					if (ServiceIsOpened() == false)
 						return;
 
-					s_eaServiceProxy.UnsubscribePlugin(a_strName);
-					s_eaServiceProxy.Close();
+					eaServiceProxy.UnsubscribePlugin(strName);
+					eaServiceProxy.Close();
 				}
 				catch (Exception ex)
 				{
-                    Console.WriteLine(String.Format("Exception during UnsubscribePlugin({0}). It is not a big problem. Message: {1}.", a_strName, ex.Message), ex);
+                    Console.WriteLine(String.Format("Exception during UnsubscribePlugin({0}). It is not a big problem. Message: {1}.", strName, ex.Message), ex);
 				}
 				finally
 				{
 					DistroySubscribePluginTimer();
 					UnsetPluginName();
-					s_enqueuedEvent.Clear();
+					enqueuedEvent.Clear();
 				}
 			}
 		}
@@ -134,25 +134,25 @@ namespace TeoVincent.EventAggregator.Client
         /// If we have any event which was not send we are try send
         /// the event again.
         /// </summary>
-		public void GlobalPublish(AEvent a_e)
+		public void GlobalPublish(AEvent e)
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
 				try
 				{
 					if (ServiceIsOpened() == false)
 					{
-						EnqueueEventToPublish(a_e);
+						EnqueueEventToPublish(e);
 						return;
 					}
 
 					PublishEnqueuedEvent();
-					s_eaServiceProxy.Publish(a_e);
+					eaServiceProxy.Publish(e);
 				}
 				catch (Exception ex)
 				{
-                    Console.WriteLine(String.Format("Exception during GlobalPublish({0}). Event {0} will enqueue in not published queue in plugin {1}. Message: {2}.", a_e, s_pluginName, ex.Message), ex);
-					EnqueueEventToPublish(a_e);
+                    Console.WriteLine(String.Format("Exception during GlobalPublish({0}). Event {0} will enqueue in not published queue in plugin {1}. Message: {2}.", e, pluginName, ex.Message), ex);
+					EnqueueEventToPublish(e);
 
 				}
 			}
@@ -163,15 +163,15 @@ namespace TeoVincent.EventAggregator.Client
 			Init();
 		}
 
-		private bool Init(int a_index = 0)
+		private bool Init(int index = 0)
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
-				if (a_index >= 3)
+				if (index >= 3)
 					return false;
 
-				if (s_eaServiceProxy != null)
-					if (s_eaServiceProxy.State == CommunicationState.Opened)
+				if (eaServiceProxy != null)
+					if (eaServiceProxy.State == CommunicationState.Opened)
 						return true;
 
 				var endpointAddress = new EndpointAddress("net.pipe://localhost/EventAggregator");
@@ -184,11 +184,11 @@ namespace TeoVincent.EventAggregator.Client
 
 				try
 				{
-					s_eaServiceProxy = new EventAggregatorServiceProxy(evntCntx, serviceBinding, endpointAddress);
-					s_eaServiceProxy.Open();
-					if (s_pluginName != null)
+					eaServiceProxy = new EventAggregatorServiceProxy(evntCntx, serviceBinding, endpointAddress);
+					eaServiceProxy.Open();
+					if (pluginName != null)
 					{
-						SubscribePlugin(s_pluginName);
+						SubscribePlugin(pluginName);
 						PublishEnqueuedEvent();
 					}
 
@@ -196,117 +196,117 @@ namespace TeoVincent.EventAggregator.Client
 				}
 				catch (Exception ex)
 				{
-                    Console.WriteLine(String.Format("Exception during initialize client side {0}. Message: {1}. Will be re+subscribe in next time.", s_pluginName, ex.Message), ex);
-					return Init(++a_index);
+                    Console.WriteLine(String.Format("Exception during initialize client side {0}. Message: {1}. Will be re+subscribe in next time.", pluginName, ex.Message), ex);
+					return Init(++index);
 				}
 			}
 		}
 
-		private void EnqueueEventToPublish(AEvent a_aEvent)
+		private void EnqueueEventToPublish(AEvent aEvent)
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
-				if (s_enqueuedEvent.Contains(a_aEvent) == false)
-					s_enqueuedEvent.Enqueue(a_aEvent);
+				if (enqueuedEvent.Contains(aEvent) == false)
+					enqueuedEvent.Enqueue(aEvent);
 			}
 		}
 
 		private void PublishEnqueuedEvent()
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
-				if (s_enqueuedEvent != null)
-					while (s_enqueuedEvent.Count > 0)
+				if (enqueuedEvent != null)
+					while (enqueuedEvent.Count > 0)
 					{
-						var e = s_enqueuedEvent.Peek();
+						var e = enqueuedEvent.Peek();
 						try
 						{
 							if  (ServiceIsOpened())
 							{
-								s_eaServiceProxy.Publish(e);
-								s_enqueuedEvent.Dequeue();
+								eaServiceProxy.Publish(e);
+								enqueuedEvent.Dequeue();
 							}
 						}
 						catch (Exception ex)
 						{
-                            Console.WriteLine(String.Format("Exception during PublishEnqueuedEvent event {0}. In next time the events will be re-publish.. Plugin name: {1}; Message: {2}", e, s_pluginName, ex.Message), ex);
+                            Console.WriteLine(String.Format("Exception during PublishEnqueuedEvent event {0}. In next time the events will be re-publish.. Plugin name: {1}; Message: {2}", e, pluginName, ex.Message), ex);
 							break;
 						}
 					}
 			}
 		}
 
-		private void Ping(object a_sender, ElapsedEventArgs a_e)
+		private void Ping(object sender, ElapsedEventArgs e)
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
-				if (String.IsNullOrEmpty(s_pluginName) == false)
+				if (String.IsNullOrEmpty(pluginName) == false)
 				{
-					SubscribePlugin(s_pluginName);
+					SubscribePlugin(pluginName);
 					PublishEnqueuedEvent();
 				}
 			}
 		}
 
-		private void SetPluginName(string a_strName)
+		private void SetPluginName(string strName)
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
-				s_pluginName = a_strName;
+				pluginName = strName;
 			}
 		}
 
 		private void UnsetPluginName()
 		{
-			lock (s_objSyncRoot)
-				s_pluginName = null;
+			lock (objSyncRoot)
+				pluginName = null;
 		}
 
 		private bool ServiceIsOpened()
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
 				return 
-                    s_eaServiceProxy != null 
-                    && (s_eaServiceProxy.State == CommunicationState.Opened || Init());
+                    eaServiceProxy != null 
+                    && (eaServiceProxy.State == CommunicationState.Opened || Init());
 			}
 		}
 
-		private void InitSubscribePluginTimer(int a_interval)
+		private void InitSubscribePluginTimer(int interval)
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
-				if (s_subscribePluginTimer == null)
+				if (subscribePluginTimer == null)
 				{
-					s_subscribePluginTimer = new Timer();
-					s_subscribePluginTimer.Interval = a_interval;
-					s_subscribePluginTimer.Elapsed += Ping;
-					s_subscribePluginTimer.Start();
+					subscribePluginTimer = new Timer();
+					subscribePluginTimer.Interval = interval;
+					subscribePluginTimer.Elapsed += Ping;
+					subscribePluginTimer.Start();
 				}
 				else
 				{
-					s_subscribePluginTimer.Interval = a_interval;
+					subscribePluginTimer.Interval = interval;
 				}
 			}
 		}
 
 		private void DistroySubscribePluginTimer()
 		{
-			lock (s_objSyncRoot)
+			lock (objSyncRoot)
 			{
-				if (s_subscribePluginTimer != null)
+				if (subscribePluginTimer != null)
 				{
-					s_subscribePluginTimer.Stop();
-					s_subscribePluginTimer = null;
+					subscribePluginTimer.Stop();
+					subscribePluginTimer = null;
 				}
 			}
 		}
 
-		private static volatile EventAggregatorClientManage s_eaInstance;
-		private static volatile EventAggregatorServiceProxy s_eaServiceProxy;
-		private static volatile string s_pluginName;
-		private static readonly Queue<AEvent> s_enqueuedEvent = new Queue<AEvent>();
-		private static volatile Timer s_subscribePluginTimer;
-		private static readonly object s_objSyncRoot = new Object();
+		private static volatile EventAggregatorClientManage eaInstance;
+		private static volatile EventAggregatorServiceProxy eaServiceProxy;
+		private static volatile string pluginName;
+		private static readonly Queue<AEvent> enqueuedEvent = new Queue<AEvent>();
+		private static volatile Timer subscribePluginTimer;
+		private static readonly object objSyncRoot = new Object();
 	}
 }

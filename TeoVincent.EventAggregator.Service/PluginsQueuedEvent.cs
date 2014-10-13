@@ -30,65 +30,65 @@ namespace TeoVincent.EventAggregator.Service
 {
 	public class PluginsQueuedEvent : IPluginsQueuedEvent
 	{
-		private readonly Dictionary<string, Queue<AEvent>> m_unpublishedEvents = new Dictionary<string, Queue<AEvent>>();
+		private readonly Dictionary<string, Queue<AEvent>> unpublishedEvents = new Dictionary<string, Queue<AEvent>>();
 
-		public void Enqueue(string a_pluginName, AEvent a_aEvent)
+		public void Enqueue(string pluginName, AEvent aEvent)
 		{
-			lock (m_unpublishedEvents)
+			lock (unpublishedEvents)
 			{
-				if (m_unpublishedEvents.ContainsKey(a_pluginName))
+				if (unpublishedEvents.ContainsKey(pluginName))
 				{
-					if (m_unpublishedEvents[a_pluginName].Contains(a_aEvent) == false)
-						m_unpublishedEvents[a_pluginName].Enqueue(a_aEvent);
+					if (unpublishedEvents[pluginName].Contains(aEvent) == false)
+						unpublishedEvents[pluginName].Enqueue(aEvent);
 				}
 				else
 				{
 					var queue = new Queue<AEvent>();
-					queue.Enqueue(a_aEvent);
-					m_unpublishedEvents.Add(a_pluginName, queue);
+					queue.Enqueue(aEvent);
+					unpublishedEvents.Add(pluginName, queue);
 				}
 			}
 		}
 
-		public void Clear(string a_pluginName)
+		public void Clear(string pluginName)
 		{
-			lock (m_unpublishedEvents)
+			lock (unpublishedEvents)
 			{
-				if (m_unpublishedEvents.ContainsKey(a_pluginName))
-					m_unpublishedEvents[a_pluginName].Clear();
+				if (unpublishedEvents.ContainsKey(pluginName))
+					unpublishedEvents[pluginName].Clear();
 			}
 		}
 
-		public AEvent Peek(string a_pluginName)
+		public AEvent Peek(string pluginName)
 		{
-			lock (m_unpublishedEvents)
+			lock (unpublishedEvents)
 			{
-				if (m_unpublishedEvents.ContainsKey(a_pluginName))
-					if (m_unpublishedEvents[a_pluginName] != null && m_unpublishedEvents[a_pluginName].Count > 0)
-						return m_unpublishedEvents[a_pluginName].Peek();
+				if (unpublishedEvents.ContainsKey(pluginName))
+					if (unpublishedEvents[pluginName] != null && unpublishedEvents[pluginName].Count > 0)
+						return unpublishedEvents[pluginName].Peek();
 
 				return null;
 			}
 		}
 
-		public int GetCount(string a_pluginName)
+		public int GetCount(string pluginName)
 		{
-			lock (m_unpublishedEvents)
+			lock (unpublishedEvents)
 			{
-				if (m_unpublishedEvents.ContainsKey(a_pluginName))
-					return m_unpublishedEvents[a_pluginName].Count;
+				if (unpublishedEvents.ContainsKey(pluginName))
+					return unpublishedEvents[pluginName].Count;
 
 				return 0;
 			}
 		}
 
-		public AEvent Dequeue(string a_pluginName)
+		public AEvent Dequeue(string pluginName)
 		{
-			lock (m_unpublishedEvents)
+			lock (unpublishedEvents)
 			{
-				if (m_unpublishedEvents.ContainsKey(a_pluginName))
-					if (m_unpublishedEvents[a_pluginName] != null && m_unpublishedEvents[a_pluginName].Count > 0)
-						return m_unpublishedEvents[a_pluginName].Dequeue();
+				if (unpublishedEvents.ContainsKey(pluginName))
+					if (unpublishedEvents[pluginName] != null && unpublishedEvents[pluginName].Count > 0)
+						return unpublishedEvents[pluginName].Dequeue();
 
 				return null;
 			}

@@ -41,6 +41,6 @@ namespace TeoVincent.EventAggregator.Common
         /// <summary>
         /// Call this method (by IEventAggregator) to inform the listener about an events.
         /// </summary>
-        void Handle(TEvent a_receivedEvent);
+        void Handle(TEvent receivedEvent);
     }
 }

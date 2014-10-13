@@ -32,12 +32,12 @@ namespace TeoVincent.FirstExampleApp.Listeners
     internal class MyAnotherExampleEventListener
         : IListener<MyAnotherExampleEvent>
     {
-        public void Handle(MyAnotherExampleEvent a_receivedEvent)
+        public void Handle(MyAnotherExampleEvent receivedEvent)
         {
             Console.WriteLine(
                 string.Format(
                     "\nHANDLE MyAnotherExampleEvent in MyAnotherExampleEventListener. Info from this event: {0}"
-                    , a_receivedEvent.Data));
+                    , receivedEvent.Data));
         }
     }
 }

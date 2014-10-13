@@ -42,7 +42,7 @@ namespace TeoVincent.EventAggregator.Common.UnitTests.Events
 		#region Equals(AEvent) Method Test
 
 		[TestMethod()]
-		public void Equals_Events_With_The_Same_Type_Test()
+		public void EqualEventWith_The_Same_Type_Test()
 		{
 			// 1) arrange
             AEvent target = CreateEvent();
@@ -59,7 +59,7 @@ namespace TeoVincent.EventAggregator.Common.UnitTests.Events
 		}
 
 		[TestMethod()]
-		public void Equals_Event_With_The_Same_Ids_Test()
+		public void EqualEvent_With_The_Same_IdTest()
 		{
 			AEvent target = CreateEvent();
 			AEvent other = new SimpleEventMock();
@@ -73,7 +73,7 @@ namespace TeoVincent.EventAggregator.Common.UnitTests.Events
 		}
 
 		[TestMethod()]
-		public void Equals_Event_After_Copy_References_Test()
+		public void EqualEvent_After_Copy_ReferenceTest()
 		{
 			AEvent target = CreateEvent();
 			AEvent other = target;
@@ -86,7 +86,7 @@ namespace TeoVincent.EventAggregator.Common.UnitTests.Events
 		}
 
 		[TestMethod()]
-		public void Equals_Event_With_The_Same_Ids_But_With_Different_Types_Test()
+		public void EqualEvent_With_The_Same_IdBut_With_Different_TypeTest()
 		{
 			AEvent target = CreateEvent();
 			target.ID = new Guid(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
@@ -105,7 +105,7 @@ namespace TeoVincent.EventAggregator.Common.UnitTests.Events
 		#region Equals(object) Method Test
 
 		[TestMethod()]
-		public void Equals_Object_Test()
+		public void EqualObject_Test()
 		{
 			AEvent target = CreateEvent();
 			object obj = new SimpleEventMock();
@@ -118,7 +118,7 @@ namespace TeoVincent.EventAggregator.Common.UnitTests.Events
 		}
 
 		[TestMethod()]
-		public void Equals_Object_With_The_Same_Ids_Test()
+		public void EqualObject_With_The_Same_IdTest()
 		{
 			AEvent target = CreateEvent();
 			object other = new SimpleEventMock();
@@ -136,7 +136,7 @@ namespace TeoVincent.EventAggregator.Common.UnitTests.Events
 		#region GetHashCode Method Test
 
 		[TestMethod()]
-		public void Get_Hash_Code_Form_Event_Test()
+		public void Get_Hash_Code_ForEvent_Test()
 		{
 			AEvent target = CreateEvent();
 
