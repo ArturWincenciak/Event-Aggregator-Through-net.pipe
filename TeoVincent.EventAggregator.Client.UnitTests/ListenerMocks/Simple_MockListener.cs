@@ -23,15 +23,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
+
+using System.Net;
 using TeoVincent.EventAggregator.Common;
 
 namespace TeoVincent.EventAggregator.Client.UnitTests
 {
-    public class SimpleMockListener : IListener<SimpleMockEvent>
+    public class Simple_MockListener : IListener<Simple_MockEvent>
     {
-        public SimpleMockEvent Event { get; private set; }
+        public Simple_MockEvent Event { get; private set; }
+
+        public Simple_MockListener()
+        {
+            Event = null;
+
+        }
         
-        public void Handle(SimpleMockEvent receivedEvent)
+        public void Handle(Simple_MockEvent receivedEvent)
         {
             Event = receivedEvent;
         }

@@ -23,43 +23,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
-using System.Threading;
-using TeoVincent.EventAggregator.Common;
 using TeoVincent.EventAggregator.Common.Events;
-using Xunit;
 
 namespace TeoVincent.EventAggregator.Client.UnitTests
 {
-    public class EventAggeregatorTester
+    public class Simple_MockEvent : AEvent
     {
-        private readonly IEventAggregator eventAggregator;
-
-        public EventAggeregatorTester()
+        public Simple_MockEvent()
+            : base(typeof(Simple_MockEvent).Name)
         {
-            var syncContexts = new SynchronizationContext();
-            eventAggregator = new EventAggregator(syncContexts);
-        }
-
-        [Fact]
-        public void EventAggregator_Not_Null()
-        {
-            Assert.NotNull(eventAggregator);
-        }
-
-        [Fact]
-        public void Subscribe_And_Publish_Event_Test()
-        {
-            // 1) arrange
-            var listener = new SimpleMockListener();
-            eventAggregator.Subscribe(listener);
-            var e = new SimpleMockEvent();
-
-            // 2) act
-            eventAggregator.Publish(e);
-            bool actual = listener.Event.Equals(e);
-
-            // 3) assert
-            Assert.True(actual);
         }
     }
 }
