@@ -24,6 +24,7 @@
 // SOFTWARE.
 #endregion
 using System.Threading;
+using Rhino.Mocks;
 using TeoVincent.EventAggregator.Client.UnitTests.EventMocks;
 using TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks;
 using TeoVincent.EventAggregator.Common;
@@ -55,6 +56,21 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
 
             // 3) assert
             Assert.True(actual);
+        }
+
+        [Fact]
+        public void By_Rhino_Mock_Subscribe_Listener_Publish_Event_Assert_If_Handle_Method_Was_Called_Test()
+        {
+            // 1) arrange
+            var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
+            eventAggregator.Subscribe(listener);
+            var e = new Simple_MockEvent();
+
+            // 2) act
+            eventAggregator.Publish(e);
+
+            // 3) assert
+            listener.AssertWasCalled(l => l.Handle(e));
         }
     }
 }
