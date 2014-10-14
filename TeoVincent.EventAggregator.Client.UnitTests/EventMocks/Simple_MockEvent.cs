@@ -23,9 +23,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 #endregion
+
 using TeoVincent.EventAggregator.Common.Events;
 
-namespace TeoVincent.EventAggregator.Client.UnitTests
+namespace TeoVincent.EventAggregator.Client.UnitTests.EventMocks
 {
     public class Simple_MockEvent : AEvent
     {

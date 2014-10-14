@@ -24,10 +24,10 @@
 // SOFTWARE.
 #endregion
 
-using System.Net;
+using TeoVincent.EventAggregator.Client.UnitTests.EventMocks;
 using TeoVincent.EventAggregator.Common;
 
-namespace TeoVincent.EventAggregator.Client.UnitTests
+namespace TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks
 {
     public class Simple_MockListener : IListener<Simple_MockEvent>
     {

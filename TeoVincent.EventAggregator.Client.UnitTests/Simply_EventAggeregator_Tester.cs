@@ -24,6 +24,8 @@
 // SOFTWARE.
 #endregion
 using System.Threading;
+using TeoVincent.EventAggregator.Client.UnitTests.EventMocks;
+using TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks;
 using TeoVincent.EventAggregator.Common;
 using Xunit;
 
