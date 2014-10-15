@@ -24,6 +24,7 @@
 // SOFTWARE.
 #endregion
 using System.Threading;
+using Rhino.Mocks;
 using TeoVincent.EventAggregator.Client.UnitTests.EventMocks;
 using TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks;
 using TeoVincent.EventAggregator.Common;
@@ -53,6 +54,80 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
             eventAggregator.Publish(e);
             eventAggregator.Publish(e);
             int actual = listener.CountOfCallsHandleMethod;
+            int expected = 2;
+
+            // 3) assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Publish_Not_Listening_Type_Of_Event_Test()
+        {
+            // 1) arrange
+            var listener = new CallHandleCounter_MockListener();
+            eventAggregator.Subscribe(listener);
+            var notListeningEvent = new Another_MockEvent();
+
+            // 2) act
+            eventAggregator.Publish(notListeningEvent);
+            int actual = listener.CountOfCallsHandleMethod;
+            int expected = 0;
+
+            // 3) assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Publish_Two_Listening_Event_Check_SimplyEvent_Test()
+        {
+            // 1) arrange
+            var listener = new CallHandleCounter_ForTwoEvents_MockListener();
+            eventAggregator.Subscribe(listener);
+            var simplyE = new Simple_MockEvent();
+            var anotherE = new Another_MockEvent();
+
+            // 2) act
+            eventAggregator.Publish(simplyE);
+            eventAggregator.Publish(anotherE);
+            int actual = listener.CountOfCallAnotherEvent;
+            int expected = 1;
+
+            // 3) assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Publish_Two_Listening_Event_Check_AnotherEvent_Test()
+        {
+            // 1) arrange
+            var listener = new CallHandleCounter_ForTwoEvents_MockListener();
+            eventAggregator.Subscribe(listener);
+            var simplyE = new Simple_MockEvent();
+            var anotherE = new Another_MockEvent();
+
+            // 2) act
+            eventAggregator.Publish(simplyE);
+            eventAggregator.Publish(anotherE);
+            int actual = listener.CountOfCallSimplyEvent;
+            int expected = 1;
+
+            // 3) assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Publish_Two_Listening_Event_Check_Both_Event_Test()
+        {
+            // 1) arrange
+            var listener = new CallHandleCounter_ForTwoEvents_MockListener();
+            eventAggregator.Subscribe(listener);
+            var simplyE = new Simple_MockEvent();
+            var anotherE = new Another_MockEvent();
+
+            // 2) act
+            eventAggregator.Publish(simplyE);
+            eventAggregator.Publish(anotherE);
+            int actual = listener.CountOfCallBothEvents;
             int expected = 2;
 
             // 3) assert

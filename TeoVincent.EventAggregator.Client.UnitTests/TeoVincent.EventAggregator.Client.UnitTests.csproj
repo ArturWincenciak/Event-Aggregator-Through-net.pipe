@@ -43,10 +43,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventMocks\Another_MockEvent.cs" />
     <Compile Include="CheckCountOfCallHandleMethod_EventAggregator_Tester.cs" />
     <Compile Include="ListenerMocks\CallHandleChecker_MockListener.cs" />
+    <Compile Include="ListenerMocks\CallHandleCounter_ForTwoEvents_MockListener.cs" />
     <Compile Include="ListenerMocks\CallHandleCounter_MockListener.cs" />
     <Compile Include="CheckIfHandleMethodWasCalled_EventAggregator_Tester.cs" />
+    <Compile Include="RhinoMock_EventAggregator_Tester.cs" />
     <Compile Include="Simply_EventAggeregator_Tester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EventMocks\Simple_MockEvent.cs" />
