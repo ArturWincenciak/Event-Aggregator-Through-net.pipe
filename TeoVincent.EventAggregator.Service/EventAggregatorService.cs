@@ -38,13 +38,23 @@ namespace TeoVincent.EventAggregator.Service
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class EventAggregatorService : IEventAggregatorService
     {
-        private readonly Dictionary<string, IEventPublisher> pluginSubscribers = new Dictionary<string, IEventPublisher>();
+        private readonly Dictionary<string, IEventPublisher> pluginSubscribers;
+        private readonly IPluginsQueuedEvent ququedEvents;
+        private readonly IUnpleasantEventStrategy unpleasantEventStrategy;
+        private readonly object syncLock;
 
-        private readonly IPluginsQueuedEvent ququedEvents = new PluginsQueuedEvent();
+        public EventAggregatorService()
+        {
+            pluginSubscribers = new Dictionary<string, IEventPublisher>();
+            ququedEvents = new PluginsQueuedEvent();
+            unpleasantEventStrategy = new UnpleasantEventPrinter();
+            syncLock = new object();
+        }
 
-        private readonly IUnpleasantEventStrategy unpleasantEventStrategy = new UnpleasantEventPrinter();
-
-        private readonly object syncLock = new object();
+        public EventAggregatorService(IUnpleasantEventStrategy unpleasantEventStrategy)
+        {
+            this.unpleasantEventStrategy = unpleasantEventStrategy;
+        }
         
         #region IEventAggregatorService
 
