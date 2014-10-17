@@ -116,31 +116,24 @@ namespace TeoVincent.EventAggregator.Service
         {
             lock (syncLock)
             {
-                try
+                foreach (var v in pluginSubscribers)
                 {
-                    foreach (var v in pluginSubscribers)
+                    try
                     {
-                        try
+                        if (((ICommunicationObject) v.Value).State == CommunicationState.Opened)
+                            v.Value.Publish(e);
+                        else
                         {
-                            if (((ICommunicationObject) v.Value).State == CommunicationState.Opened)
-                                v.Value.Publish(e);
-                            else
-                            {
-                                DetachToAnEvent((ICommunicationObject) v.Value);
-                                AddToUnPublishedEvents(v.Key, e);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine("Exception during publish event {0}; {1}; Message: {2}. EVENT WILL BE RE-PUBLISH.", v.Key, e, ex.Message);
                             DetachToAnEvent((ICommunicationObject) v.Value);
                             AddToUnPublishedEvents(v.Key, e);
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("FATAL EXCEPTION DURING: Publish event: {0}; Message: {1}.", e, ex.Message);
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Exception during publish event {0}; {1}; Message: {2}. EVENT WILL BE RE-PUBLISH.", v.Key, e, ex.Message);
+                        DetachToAnEvent((ICommunicationObject) v.Value);
+                        AddToUnPublishedEvents(v.Key, e);
+                    }
                 }
             }
         }
