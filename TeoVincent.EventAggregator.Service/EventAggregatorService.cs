@@ -32,9 +32,8 @@ using TeoVincent.EventAggregator.Common.Service;
 namespace TeoVincent.EventAggregator.Service
 {
     /// <summary>
-    /// Service implementation. Manage the appdomains callback and send
-    /// event by Publish callback method to each appdomains. This imlementation
-    /// has handling errors.
+    /// Service implementation. Manager of appdomains callback and sender
+    /// event by callback method to each appdomains.
     /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class EventAggregatorService : IEventAggregatorService
@@ -57,7 +56,7 @@ namespace TeoVincent.EventAggregator.Service
 
         /// <summary>
         /// Save callback object in dictionary where key is name of appdomain. If in the dictionary
-        /// exists the same name of appdomain this item is overrides.
+        /// the name exists the item will override.
         /// </summary>
         public void SubscribePlugin(string name)
         {
@@ -79,10 +78,7 @@ namespace TeoVincent.EventAggregator.Service
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(
-                        string.Format(
-                            "FATAL EXCEPTION DURING: Subscribe plugin (service side): {0}; EventAggregatorService.SubscribePlugin({0}): Message: {1}.", name,
-                            ex.Message), ex);
+                    Console.WriteLine("FATAL EXCEPTION DURING: Subscribe plugin: {0}: Message: {1}.", name, ex.Message);
                 }
             }
         }
@@ -114,7 +110,7 @@ namespace TeoVincent.EventAggregator.Service
         }
 
         /// <summary>
-        /// Broadcast event to each subscribed appdomain using callback objects.
+        /// Broadcast event to each subscribers using callback objects.
         /// </summary>
         public void Publish(AEvent e)
         {
@@ -136,10 +132,7 @@ namespace TeoVincent.EventAggregator.Service
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine(
-                                string.Format(
-                                    "Exception during publish event (service site) {0}; v.Value.Publish({1}); Message: {2}. EVENT WILL BE RE-PUBLISH.", v.Key, e,
-                                    ex.Message));
+                            Console.WriteLine("Exception during publish event {0}; {1}; Message: {2}. EVENT WILL BE RE-PUBLISH.", v.Key, e, ex.Message);
                             DetachToAnEvent((ICommunicationObject) v.Value);
                             AddToUnPublishedEvents(v.Key, e);
                         }
@@ -147,9 +140,7 @@ namespace TeoVincent.EventAggregator.Service
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(
-                        string.Format("FATAL EXCEPTION DURING: Publish event (service site): {0}; EventAggregatorService.Publish({0}): Message: {1}.", e,
-                            ex.Message), ex);
+                    Console.WriteLine("FATAL EXCEPTION DURING: Publish event: {0}; Message: {1}.", e, ex.Message);
                 }
             }
         }
@@ -159,19 +150,19 @@ namespace TeoVincent.EventAggregator.Service
         private void OnCallbackChangeToFaulted(object sender, EventArgs e)
         {
             var pluginName = GetPluginName((IEventPublisher) sender);
-            Console.WriteLine(string.Format("Callback change to faulted state. Plugin name: {0}. If necessary they will again be a subscription.", pluginName));
+            Console.WriteLine("Callback change to faulted state. Plugin name: {0}.", pluginName);
         }
 
         private void OnCallbackChangeToClosing(object sender, EventArgs e)
         {
             var pluginName = GetPluginName((IEventPublisher) sender);
-            Console.WriteLine(string.Format("Callback change to closing state. Plugin name: {0}. If necessary they will again be a subscription.", pluginName));
+            Console.WriteLine("Callback change to closing state. Plugin name: {0}.", pluginName);
         }
 
         private void OnCallbackChangeClosed(object sender, EventArgs e)
         {
             var pluginName = GetPluginName((IEventPublisher) sender);
-            Console.WriteLine(string.Format("Callback change to closed state. Plugin name: {0}. If necessary they will again be a subscription.", pluginName));
+            Console.WriteLine("Callback change to closed state. Plugin name: {0}.", pluginName);
         }
 
         private void AttachToAnEvent(ICommunicationObject communicationObject)
@@ -223,8 +214,7 @@ namespace TeoVincent.EventAggregator.Service
                     }
                     else
                     {
-                        Console.WriteLine(string.Format("Can not send event {0} for plugin {1} so break this loop. In next time the event will be re-send.", e,
-                            pluginName));
+                        Console.WriteLine("Can not send event {0} for plugin {1} so this loop was break. In next time the event will be re-send.", e, pluginName);
                         break;
                     }
                 }
@@ -243,10 +233,7 @@ namespace TeoVincent.EventAggregator.Service
                         return true;
                     }
 
-                    Console.WriteLine(
-                        string.Format(
-                            "Can not republishing event {0} because pluging name {1} is not exist in subscribe list. In next time the event will be re-send.",
-                            aEvent, pluginName));
+                    Console.WriteLine("Can not republishing event {0} because pluging name {1} is not exist in subscribe list. In next time the event will be re-send.", aEvent, pluginName);
                 }
                 catch (Exception ex)
                 {
