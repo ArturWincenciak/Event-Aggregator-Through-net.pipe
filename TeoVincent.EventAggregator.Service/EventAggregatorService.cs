@@ -65,11 +65,9 @@ namespace TeoVincent.EventAggregator.Service
                 try
                 {
                     var callback = OperationContext.Current.GetCallbackChannel<IEventPublisher>();
-                    AttachToAnEvent((ICommunicationObject) callback);
 
                     if (pluginSubscribers.ContainsKey(name))
                     {
-                        DetachToAnEvent((ICommunicationObject) pluginSubscribers[name]);
                         pluginSubscribers[name] = callback;
                         SendUnpublishedEvents(name);
                     }
@@ -95,7 +93,6 @@ namespace TeoVincent.EventAggregator.Service
                     if (pluginSubscribers.ContainsKey(name) == false)
                         return;
 
-                    DetachToAnEvent((ICommunicationObject) pluginSubscribers[name]);
                     ququedEvents.Clear(name);
                     pluginSubscribers.Remove(name);
                 }
@@ -124,14 +121,12 @@ namespace TeoVincent.EventAggregator.Service
                             v.Value.Publish(e);
                         else
                         {
-                            DetachToAnEvent((ICommunicationObject) v.Value);
                             AddToUnPublishedEvents(v.Key, e);
                         }
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine("Exception during publish event {0}; {1}; Message: {2}. EVENT WILL BE RE-PUBLISH.", v.Key, e, ex.Message);
-                        DetachToAnEvent((ICommunicationObject) v.Value);
                         AddToUnPublishedEvents(v.Key, e);
                     }
                 }
@@ -139,52 +134,6 @@ namespace TeoVincent.EventAggregator.Service
         }
 
         #endregion
-
-        private void OnCallbackChangeToFaulted(object sender, EventArgs e)
-        {
-            var pluginName = GetPluginName((IEventPublisher) sender);
-            Console.WriteLine("Callback change to faulted state. Plugin name: {0}.", pluginName);
-        }
-
-        private void OnCallbackChangeToClosing(object sender, EventArgs e)
-        {
-            var pluginName = GetPluginName((IEventPublisher) sender);
-            Console.WriteLine("Callback change to closing state. Plugin name: {0}.", pluginName);
-        }
-
-        private void OnCallbackChangeClosed(object sender, EventArgs e)
-        {
-            var pluginName = GetPluginName((IEventPublisher) sender);
-            Console.WriteLine("Callback change to closed state. Plugin name: {0}.", pluginName);
-        }
-
-        private void AttachToAnEvent(ICommunicationObject communicationObject)
-        {
-            communicationObject.Faulted += OnCallbackChangeToFaulted;
-            communicationObject.Closing += OnCallbackChangeToClosing;
-            communicationObject.Closed += OnCallbackChangeClosed;
-        }
-
-        private void DetachToAnEvent(ICommunicationObject communicationObject)
-        {
-            communicationObject.Faulted -= OnCallbackChangeToFaulted;
-            communicationObject.Closing -= OnCallbackChangeToClosing;
-            communicationObject.Closed -= OnCallbackChangeClosed;
-        }
-
-        private string GetPluginName(IEventPublisher eventPublisher)
-        {
-            lock (syncLock)
-            {
-                foreach (var pluginSubscriber in pluginSubscribers)
-                {
-                    if (pluginSubscriber.Value.Equals(eventPublisher))
-                        return pluginSubscriber.Key;
-                }
-
-                return "_NULL_";
-            }
-        }
 
         private void AddToUnPublishedEvents(string pluginName, AEvent aEvent)
         {
