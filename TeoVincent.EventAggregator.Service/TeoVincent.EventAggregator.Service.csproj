@@ -45,10 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventAggregatorMain.cs" />
+    <Compile Include="IUnpleasantEventStrategy.cs" />
     <Compile Include="PluginsQueuedEvent.cs" />
     <Compile Include="IPluginsQueuedEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EventAggregatorService.cs" />
+    <Compile Include="UnpleasantEventPrinter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

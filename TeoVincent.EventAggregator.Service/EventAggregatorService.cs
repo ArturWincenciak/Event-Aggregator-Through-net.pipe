@@ -42,6 +42,8 @@ namespace TeoVincent.EventAggregator.Service
 
         private readonly IPluginsQueuedEvent ququedEvents = new PluginsQueuedEvent();
 
+        private readonly IUnpleasantEventStrategy unpleasantEventStrategy = new UnpleasantEventPrinter();
+
         private readonly object syncLock = new object();
         
         #region IEventAggregatorService
@@ -76,7 +78,7 @@ namespace TeoVincent.EventAggregator.Service
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("FATAL EXCEPTION DURING: Subscribe plugin: {0}: Message: {1}.", name, ex.Message);
+                    unpleasantEventStrategy.OnSubscribeBug(name, ex);
                 }
             }
         }
@@ -98,10 +100,7 @@ namespace TeoVincent.EventAggregator.Service
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(
-                        string.Format(
-                            "FATAL EXCEPTION DURING: Unsubscribe plugin (service side): {0}; EventAggregatorService.UnsubscribePlugin({0}): Message: {1}."
-                            , name, ex.Message), ex);
+                    unpleasantEventStrategy.OnUnsubscribeBug(name, ex);
                 }
             }
         }
@@ -126,7 +125,7 @@ namespace TeoVincent.EventAggregator.Service
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Exception during publish event {0}; {1}; Message: {2}. EVENT WILL BE RE-PUBLISH.", v.Key, e, ex.Message);
+                        unpleasantEventStrategy.OnPublishBug(v.Key, e, ex);
                         AddToUnPublishedEvents(v.Key, e);
                     }
                 }
