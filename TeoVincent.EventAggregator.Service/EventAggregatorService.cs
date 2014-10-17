@@ -53,6 +53,10 @@ namespace TeoVincent.EventAggregator.Service
 
         public EventAggregatorService(IUnpleasantEventStrategy unpleasantEventStrategy)
         {
+            pluginSubscribers = new Dictionary<string, IEventPublisher>();
+            ququedEvents = new PluginsQueuedEvent();
+            syncLock = new object();
+
             this.unpleasantEventStrategy = unpleasantEventStrategy;
         }
         
