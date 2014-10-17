@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.OwnNewApllicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EventAggregator.Client.UnitTests", "TeoVincent.EventAggregator.Client.UnitTests\TeoVincent.EventAggregator.Client.UnitTests.csproj", "{C4821129-7A7C-40B8-906B-FB3324768626}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EventAggregator.Service.UnitTests", "TeoVincent.EventAggregator.Service.UnitTests\TeoVincent.EventAggregator.Service.UnitTests.csproj", "{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +151,16 @@ Global
 		{C4821129-7A7C-40B8-906B-FB3324768626}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C4821129-7A7C-40B8-906B-FB3324768626}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C4821129-7A7C-40B8-906B-FB3324768626}.Release|x86.ActiveCfg = Release|Any CPU
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,5 +176,6 @@ Global
 		{7E2CDD01-D446-4E7F-B7C4-7DC797148FC1} = {4E151C80-6695-420E-8969-F6E6D0B3D4EF}
 		{D71C7295-D5E4-437A-AC26-B8C4F4760C4D} = {4E151C80-6695-420E-8969-F6E6D0B3D4EF}
 		{C4821129-7A7C-40B8-906B-FB3324768626} = {F0D6F2C9-436A-41E2-ABDA-825C2B8A1677}
+		{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0} = {F0D6F2C9-436A-41E2-ABDA-825C2B8A1677}
 	EndGlobalSection
 EndGlobal
