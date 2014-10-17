@@ -15,7 +15,10 @@ namespace TeoVincent.EventAggregator.Service.UnitTests
         {
             // 1) arrange
             var unpleasantEventStrategy = new UnpleasantEventRiseMethodChecer_Mock();
-            IEventAggregatorService eventAggregator = new EventAggregatorService(unpleasantEventStrategy);
+            var eventPublisher = new EventPublisher_Mock();
+            var eventPublisherCreator = new EventPublisherCreator_Mock(eventPublisher);
+            
+            IEventAggregatorService eventAggregator = new EventAggregatorService(unpleasantEventStrategy, eventPublisherCreator);
             string plugin = "Teo";
 
             // 2) act

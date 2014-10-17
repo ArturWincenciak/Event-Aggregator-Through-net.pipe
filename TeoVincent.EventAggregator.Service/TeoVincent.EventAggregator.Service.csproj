@@ -44,7 +44,9 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrentContextCallbackCreator.cs" />
     <Compile Include="EventAggregatorMain.cs" />
+    <Compile Include="IEventPublisherCreator.cs" />
     <Compile Include="IUnpleasantEventStrategy.cs" />
     <Compile Include="PluginsQueuedEvent.cs" />
     <Compile Include="IPluginsQueuedEvent.cs" />

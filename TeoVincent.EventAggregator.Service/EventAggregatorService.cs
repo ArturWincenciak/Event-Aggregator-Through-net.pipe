@@ -41,6 +41,7 @@ namespace TeoVincent.EventAggregator.Service
         private readonly Dictionary<string, IEventPublisher> pluginSubscribers;
         private readonly IPluginsQueuedEvent ququedEvents;
         private readonly IUnpleasantEventStrategy unpleasantEventStrategy;
+        private readonly IEventPublisherCreator ublisherCreator;
         private readonly object syncLock;
 
         public EventAggregatorService()
@@ -48,16 +49,18 @@ namespace TeoVincent.EventAggregator.Service
             pluginSubscribers = new Dictionary<string, IEventPublisher>();
             ququedEvents = new PluginsQueuedEvent();
             unpleasantEventStrategy = new UnpleasantEventPrinter();
+            ublisherCreator = new CurrentContextCallbackCreator();
             syncLock = new object();
         }
 
-        public EventAggregatorService(IUnpleasantEventStrategy unpleasantEventStrategy)
+        public EventAggregatorService(IUnpleasantEventStrategy unpleasantEventStrategy, IEventPublisherCreator ublisherCreator)
         {
             pluginSubscribers = new Dictionary<string, IEventPublisher>();
             ququedEvents = new PluginsQueuedEvent();
             syncLock = new object();
 
             this.unpleasantEventStrategy = unpleasantEventStrategy;
+            this.ublisherCreator = ublisherCreator;
         }
         
         #region IEventAggregatorService
@@ -80,7 +83,7 @@ namespace TeoVincent.EventAggregator.Service
             {
                 try
                 {
-                    var callback = OperationContext.Current.GetCallbackChannel<IEventPublisher>();
+                    var callback = ublisherCreator.Create();
 
                     if (pluginSubscribers.ContainsKey(name))
                     {
