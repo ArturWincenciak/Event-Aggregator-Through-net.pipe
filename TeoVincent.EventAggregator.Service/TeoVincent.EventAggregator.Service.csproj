@@ -47,12 +47,12 @@
     <Compile Include="CurrentContextCallbackCreator.cs" />
     <Compile Include="EventAggregatorMain.cs" />
     <Compile Include="IEventPublisherCreator.cs" />
-    <Compile Include="IUnpleasantEventStrategy.cs" />
+    <Compile Include="IErrorsHandler.cs" />
     <Compile Include="PluginsQueuedEvent.cs" />
     <Compile Include="IPluginsQueuedEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EventAggregatorService.cs" />
-    <Compile Include="UnpleasantEventPrinter.cs" />
+    <Compile Include="ErrorsPrinter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -49,7 +49,7 @@
     <Compile Include="EventPublisherCreator_Mock.cs" />
     <Compile Include="EventPublisher_Mock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnpleasantEventRiseMethodChecer_Mock.cs" />
+    <Compile Include="ErrorsHandlerCheckable_Mock.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

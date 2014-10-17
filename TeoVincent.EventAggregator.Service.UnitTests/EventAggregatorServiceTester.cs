@@ -14,7 +14,7 @@ namespace TeoVincent.EventAggregator.Service.UnitTests
         public void Subscribe_Plugin_Test()
         {
             // 1) arrange
-            var unpleasantEventStrategy = new UnpleasantEventRiseMethodChecer_Mock();
+            var unpleasantEventStrategy = new ErrorsHandlerCheckable_Mock();
             var eventPublisher = new EventPublisher_Mock();
             var eventPublisherCreator = new EventPublisherCreator_Mock(eventPublisher);
             

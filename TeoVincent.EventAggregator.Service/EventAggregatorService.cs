@@ -40,27 +40,27 @@ namespace TeoVincent.EventAggregator.Service
     {
         private readonly Dictionary<string, IEventPublisher> pluginSubscribers;
         private readonly IPluginsQueuedEvent ququedEvents;
-        private readonly IUnpleasantEventStrategy unpleasantEventStrategy;
-        private readonly IEventPublisherCreator ublisherCreator;
+        private readonly IErrorsHandler errorsHandler;
+        private readonly IEventPublisherCreator publisherCreator;
         private readonly object syncLock;
 
         public EventAggregatorService()
         {
             pluginSubscribers = new Dictionary<string, IEventPublisher>();
             ququedEvents = new PluginsQueuedEvent();
-            unpleasantEventStrategy = new UnpleasantEventPrinter();
-            ublisherCreator = new CurrentContextCallbackCreator();
+            errorsHandler = new ErrorsPrinter();
+            publisherCreator = new CurrentContextCallbackCreator();
             syncLock = new object();
         }
 
-        public EventAggregatorService(IUnpleasantEventStrategy unpleasantEventStrategy, IEventPublisherCreator ublisherCreator)
+        public EventAggregatorService(IErrorsHandler errorsHandler, IEventPublisherCreator publisherCreator)
         {
             pluginSubscribers = new Dictionary<string, IEventPublisher>();
             ququedEvents = new PluginsQueuedEvent();
             syncLock = new object();
 
-            this.unpleasantEventStrategy = unpleasantEventStrategy;
-            this.ublisherCreator = ublisherCreator;
+            this.errorsHandler = errorsHandler;
+            this.publisherCreator = publisherCreator;
         }
         
         #region IEventAggregatorService
@@ -83,7 +83,7 @@ namespace TeoVincent.EventAggregator.Service
             {
                 try
                 {
-                    var callback = ublisherCreator.Create();
+                    var callback = publisherCreator.Create();
 
                     if (pluginSubscribers.ContainsKey(name))
                     {
@@ -95,7 +95,7 @@ namespace TeoVincent.EventAggregator.Service
                 }
                 catch (Exception ex)
                 {
-                    unpleasantEventStrategy.OnSubscribeBug(name, ex);
+                    errorsHandler.OnSubscriptionFailed(name, ex);
                 }
             }
         }
@@ -117,7 +117,7 @@ namespace TeoVincent.EventAggregator.Service
                 }
                 catch (Exception ex)
                 {
-                    unpleasantEventStrategy.OnUnsubscribeBug(name, ex);
+                    errorsHandler.OnUnsubscriptionFailed(name, ex);
                 }
             }
         }
@@ -142,7 +142,7 @@ namespace TeoVincent.EventAggregator.Service
                     }
                     catch (Exception ex)
                     {
-                        unpleasantEventStrategy.OnPublishBug(v.Key, e, ex);
+                        errorsHandler.OnPublishFailed(v.Key, e, ex);
                         AddToUnPublishedEvents(v.Key, e);
                     }
                 }
