@@ -54,15 +54,14 @@ namespace TeoVincent.EventAggregator.Service
             unpublishedEvents = new UnpublishedEventsContainer(ququedEventsQueue);
         }
 
-        public EventAggregatorService(IErrorsHandler errorsHandler, IPublisherCreator publisherCreator)
+        public EventAggregatorService(IErrorsHandler errorsHandler, IPublisherCreator publisherCreator, IEventContainer unpublishedEvents)
         {
             syncLock = new object();
             pluginSubscribers = new Dictionary<string, IEventPublisher>();
-            IEventQueue ququedEventsQueue = new EventQueue();
-            unpublishedEvents = new UnpublishedEventsContainer(ququedEventsQueue);
-
+            
             this.errorsHandler = errorsHandler;
             this.publisherCreator = publisherCreator;
+            this.unpublishedEvents = unpublishedEvents;
         }
         
         #region IEventAggregatorService

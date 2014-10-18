@@ -4,7 +4,7 @@ using TeoVincent.EventAggregator.Common.Service;
 using TeoVincent.EventAggregator.Service.UnitTests.Mocks;
 using Xunit;
 
-namespace TeoVincent.EventAggregator.Service.UnitTests.EventQueueTests
+namespace TeoVincent.EventAggregator.Service.UnitTests.UnpublishedEventsContainerTests
 {
     public class UnpublishedEventsContainerTester
     {
@@ -17,7 +17,7 @@ namespace TeoVincent.EventAggregator.Service.UnitTests.EventQueueTests
         {
             // 1) arrange
             var eventQueue = new EventQueue();
-            eventConteiner = new UnpublishedEventsContainer(eventQueue);
+            eventConteiner = new Service.UnpublishedEventsContainer(eventQueue);
             pluginName = "TeoVincent";
             e = new Event_Mock();
             publisher = MockRepository.GenerateStub<IEventPublisher>();

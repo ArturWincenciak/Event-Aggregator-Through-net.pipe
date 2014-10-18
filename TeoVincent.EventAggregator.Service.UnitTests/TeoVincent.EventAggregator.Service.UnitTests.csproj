@@ -45,13 +45,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mocks\FiledEventConteiner_Mock.cs" />
+    <Compile Include="EventAggregatorServiceTests\UnsubscribingEventAggregatorTester.cs" />
     <Compile Include="EventQueueTests\BaseEventQueueTester.cs" />
     <Compile Include="EventQueueTests\DequeueEventQueueTester.cs" />
-    <Compile Include="EventAggregatorServiceTests\EventAggregatorServiceTester.cs" />
+    <Compile Include="EventAggregatorServiceTests\SubscribingEventAggregatorServiceTester.cs" />
     <Compile Include="EventQueueTests\DequeueMoreTheOneEventTester.cs" />
     <Compile Include="EventQueueTests\CountEventQueueTester.cs" />
-    <Compile Include="EventQueueTests\UnpublishedEventsContainerTester.cs" />
+    <Compile Include="UnpublishedEventsContainerTests\UnpublishedEventsContainerTester.cs" />
     <Compile Include="Mocks\Event_Mock.cs" />
+    <Compile Include="Mocks\FailedPublisherCreator_Mock.cs" />
+    <Compile Include="Mocks\FailedEventPublisher_Mock.cs" />
     <Compile Include="Mocks\PublisherCreator_Mock.cs" />
     <Compile Include="Mocks\EventPublisher_Mock.cs" />
     <Compile Include="EventQueueTests\PeekEventQueueTester.cs" />
@@ -71,9 +75,7 @@
       <Name>TeoVincent.EventAggregator.Service</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UnpublishedEventsContainer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
