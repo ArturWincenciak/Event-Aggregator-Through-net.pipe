@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rhino.Mocks;
-using TeoVincent.EventAggregator.Common.Service;
+﻿using TeoVincent.EventAggregator.Common.Service;
 using TeoVincent.EventAggregator.Service.UnitTests.Mocks;
 using Xunit;
 
-namespace TeoVincent.EventAggregator.Service.UnitTests
+namespace TeoVincent.EventAggregator.Service.UnitTests.EventAggregatorServiceTests
 {
     public class EventAggregatorServiceTester
     {
@@ -18,7 +13,7 @@ namespace TeoVincent.EventAggregator.Service.UnitTests
             var unpleasantEventStrategy = new ErrorsHandlerCheckable_Mock();
             var eventPublisher = new EventPublisher_Mock();
             var eventPublisherCreator = new PublisherCreator_Mock(eventPublisher);
-            
+
             IEventAggregatorService eventAggregator = new EventAggregatorService(unpleasantEventStrategy, eventPublisherCreator);
             string plugin = "Teo";
 
