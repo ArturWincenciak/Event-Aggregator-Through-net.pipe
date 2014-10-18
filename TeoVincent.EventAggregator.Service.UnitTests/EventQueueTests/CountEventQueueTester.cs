@@ -77,5 +77,36 @@ namespace TeoVincent.EventAggregator.Service.UnitTests.EventQueueTests
             // 3) assert
             Assert.Equal(expect, actual);
         }
+
+        [Fact]
+        public void Add_Two_And_Clear_Assert_Cout_For_Test()
+        {
+            // 2) act
+            queue.Enqueue(pluginName, e);
+            queue.Enqueue(pluginName, new Event_Mock());
+            queue.Clear(pluginName);
+            int actual = queue.GetCount(pluginName);
+            int expect = 0;
+
+            // 3) assert
+            Assert.Equal(expect, actual);
+        }
+
+        [Fact]
+        public void Add_Two_And_Another_Plugin_Clear_Assert_Cout_For_Test()
+        {
+            // 1) arrange
+            string anotherName = "plugin";
+
+            // 2) act
+            queue.Enqueue(pluginName, e);
+            queue.Enqueue(pluginName, new Event_Mock());
+            queue.Clear(anotherName);
+            int actual = queue.GetCount(pluginName);
+            int expect = 2;
+
+            // 3) assert
+            Assert.Equal(expect, actual);
+        }
     }
 }
