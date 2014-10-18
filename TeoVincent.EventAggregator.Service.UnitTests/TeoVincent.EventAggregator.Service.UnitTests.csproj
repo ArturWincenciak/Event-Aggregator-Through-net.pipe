@@ -45,6 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventAggregatorServiceTests\FiledPublishEventAggregatorServiceTester.cs" />
+    <Compile Include="EventAggregatorServiceTests\PublishEventAggregatorServiceTester.cs" />
     <Compile Include="Mocks\FiledEventConteiner_Mock.cs" />
     <Compile Include="EventAggregatorServiceTests\UnsubscribingEventAggregatorTester.cs" />
     <Compile Include="EventQueueTests\BaseEventQueueTester.cs" />

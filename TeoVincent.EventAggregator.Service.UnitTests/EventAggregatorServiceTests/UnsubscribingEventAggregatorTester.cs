@@ -9,17 +9,25 @@ namespace TeoVincent.EventAggregator.Service.UnitTests.EventAggregatorServiceTes
 {
     public class UnsubscribingEventAggregatorTester
     {
+        private readonly IErrorsHandler errorHandler;
+        private readonly string plugin;
+        private readonly PublisherCreator_Mock publisherCreator;
+
+        public UnsubscribingEventAggregatorTester()
+        {
+            errorHandler = MockRepository.GenerateMock<IErrorsHandler>();
+            var eventPublisher = new EventPublisher_Mock();
+            publisherCreator = new PublisherCreator_Mock(eventPublisher);
+            plugin = "Teo";
+        }
+        
         [Fact]
         public void Unsubscribe_Not_Contains_Plugin_Test()
         {
             // 1) arrange
-            var errorHandler = MockRepository.GenerateMock<IErrorsHandler>();
-            var eventPublisher = new EventPublisher_Mock();
-            var publisherCreator = new PublisherCreator_Mock(eventPublisher);
             var eventConteiner = MockRepository.GenerateMock<IEventContainer>();
             IEventAggregatorService eventAggregator = new EventAggregatorService(errorHandler, publisherCreator, eventConteiner);
-            string plugin = "Teo";
-
+            
             // 2) act
             eventAggregator.UnsubscribePlugin(plugin);
 
@@ -33,12 +41,8 @@ namespace TeoVincent.EventAggregator.Service.UnitTests.EventAggregatorServiceTes
         public void Unsubscribe_Contains_Plugin_Test()
         {
             // 1) arrange
-            var errorHandler = MockRepository.GenerateMock<IErrorsHandler>();
-            var eventPublisher = new EventPublisher_Mock();
-            var publisherCreator = new PublisherCreator_Mock(eventPublisher);
             var eventConteiner = MockRepository.GenerateMock<IEventContainer>();
             IEventAggregatorService eventAggregator = new EventAggregatorService(errorHandler, publisherCreator, eventConteiner);
-            string plugin = "Teo";
 
             // 2) act
             eventAggregator.SubscribePlugin(plugin);
@@ -56,13 +60,9 @@ namespace TeoVincent.EventAggregator.Service.UnitTests.EventAggregatorServiceTes
         public void Filed_Unsubscribe_Contains_Plugin_Test()
         {
             // 1) arrange
-            var errorHandler = MockRepository.GenerateMock<IErrorsHandler>();
-            var eventPublisher = new EventPublisher_Mock();
-            var publisherCreator = new PublisherCreator_Mock(eventPublisher);
             var ex = new Exception();
             IEventContainer eventConteiner = new FiledEventConteiner_Mock(ex);
             IEventAggregatorService eventAggregator = new EventAggregatorService(errorHandler, publisherCreator, eventConteiner);
-            string plugin = "Teo";
 
             // 2) act
             eventAggregator.SubscribePlugin(plugin);
