@@ -27,7 +27,7 @@ using TeoVincent.EventAggregator.Common.Events;
 
 namespace TeoVincent.EventAggregator.Service
 {
-	public interface IPluginsQueuedEvent
+	public interface IEventQueue
 	{
 		void Enqueue(string pluginName, AEvent aEvent);
 		void Clear(string pluginName);

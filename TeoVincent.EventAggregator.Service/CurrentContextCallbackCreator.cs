@@ -3,7 +3,7 @@ using TeoVincent.EventAggregator.Common.Service;
 
 namespace TeoVincent.EventAggregator.Service
 {
-    public class CurrentContextCallbackCreator : IEventPublisherCreator
+    public class CurrentContextCallbackCreator : IPublisherCreator
     {
         public IEventPublisher Create()
         {

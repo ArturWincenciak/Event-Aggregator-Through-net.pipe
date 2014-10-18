@@ -46,10 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventAggregatorServiceTester.cs" />
-    <Compile Include="EventPublisherCreator_Mock.cs" />
-    <Compile Include="EventPublisher_Mock.cs" />
+    <Compile Include="Mocks\PublisherCreator_Mock.cs" />
+    <Compile Include="Mocks\EventPublisher_Mock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ErrorsHandlerCheckable_Mock.cs" />
+    <Compile Include="Mocks\ErrorsHandlerCheckable_Mock.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

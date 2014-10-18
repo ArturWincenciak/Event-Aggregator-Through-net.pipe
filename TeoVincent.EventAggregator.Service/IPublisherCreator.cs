@@ -2,7 +2,7 @@
 
 namespace TeoVincent.EventAggregator.Service
 {
-    public interface IEventPublisherCreator
+    public interface IPublisherCreator
     {
         IEventPublisher Create();
     }

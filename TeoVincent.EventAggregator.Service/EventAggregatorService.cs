@@ -38,26 +38,28 @@ namespace TeoVincent.EventAggregator.Service
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class EventAggregatorService : IEventAggregatorService
     {
-        private readonly Dictionary<string, IEventPublisher> pluginSubscribers;
-        private readonly IPluginsQueuedEvent ququedEvents;
-        private readonly IErrorsHandler errorsHandler;
-        private readonly IEventPublisherCreator publisherCreator;
         private readonly object syncLock;
+        private readonly Dictionary<string, IEventPublisher> pluginSubscribers;
+        private readonly IErrorsHandler errorsHandler;
+        private readonly IPublisherCreator publisherCreator;
+        private readonly IEventContainer unpublishedEvents;
 
         public EventAggregatorService()
         {
+            syncLock = new object();
             pluginSubscribers = new Dictionary<string, IEventPublisher>();
-            ququedEvents = new PluginsQueuedEvent();
             errorsHandler = new ErrorsPrinter();
             publisherCreator = new CurrentContextCallbackCreator();
-            syncLock = new object();
+            IEventQueue ququedEventsQueue = new EventQueue();
+            unpublishedEvents = new UnpublishedEventsContainer(ququedEventsQueue);
         }
 
-        public EventAggregatorService(IErrorsHandler errorsHandler, IEventPublisherCreator publisherCreator)
+        public EventAggregatorService(IErrorsHandler errorsHandler, IPublisherCreator publisherCreator)
         {
-            pluginSubscribers = new Dictionary<string, IEventPublisher>();
-            ququedEvents = new PluginsQueuedEvent();
             syncLock = new object();
+            pluginSubscribers = new Dictionary<string, IEventPublisher>();
+            IEventQueue ququedEventsQueue = new EventQueue();
+            unpublishedEvents = new UnpublishedEventsContainer(ququedEventsQueue);
 
             this.errorsHandler = errorsHandler;
             this.publisherCreator = publisherCreator;
@@ -88,7 +90,7 @@ namespace TeoVincent.EventAggregator.Service
                     if (pluginSubscribers.ContainsKey(name))
                     {
                         pluginSubscribers[name] = callback;
-                        SendUnpublishedEvents(name);
+                        unpublishedEvents.Publish(name, callback);
                     }
                     else
                         pluginSubscribers.Add(name, callback);
@@ -112,7 +114,7 @@ namespace TeoVincent.EventAggregator.Service
                     if (pluginSubscribers.ContainsKey(name) == false)
                         return;
 
-                    ququedEvents.Clear(name);
+                    unpublishedEvents.Leave(name);
                     pluginSubscribers.Remove(name);
                 }
                 catch (Exception ex)
@@ -133,76 +135,17 @@ namespace TeoVincent.EventAggregator.Service
                 {
                     try
                     {
-                        if (((ICommunicationObject) v.Value).State == CommunicationState.Opened)
-                            v.Value.Publish(e);
-                        else
-                        {
-                            AddToUnPublishedEvents(v.Key, e);
-                        }
+                        v.Value.Publish(e);
                     }
                     catch (Exception ex)
                     {
                         errorsHandler.OnPublishFailed(v.Key, e, ex);
-                        AddToUnPublishedEvents(v.Key, e);
+                        unpublishedEvents.Store(v.Key, e);
                     }
                 }
             }
         }
 
         #endregion
-
-        private void AddToUnPublishedEvents(string pluginName, AEvent aEvent)
-        {
-            lock (syncLock)
-            {
-                ququedEvents.Enqueue(pluginName, aEvent);
-            }
-        }
-
-        private void SendUnpublishedEvents(string pluginName)
-        {
-            lock (syncLock)
-            {
-                while (ququedEvents.GetCount(pluginName) > 0)
-                {
-                    var e = ququedEvents.Peek(pluginName);
-                    if (RePublish(pluginName, e))
-                    {
-                        ququedEvents.Dequeue(pluginName);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Can not send event {0} for plugin {1} so this loop was break. In next time the event will be re-send.", e, pluginName);
-                        break;
-                    }
-                }
-            }
-        }
-
-        private bool RePublish(string pluginName, AEvent aEvent)
-        {
-            lock (syncLock)
-            {
-                try
-                {
-                    if (pluginSubscribers.ContainsKey(pluginName))
-                    {
-                        pluginSubscribers[pluginName].Publish(aEvent);
-                        return true;
-                    }
-
-                    Console.WriteLine("Can not republishing event {0} because pluging name {1} is not exist in subscribe list. In next time the event will be re-send.", aEvent, pluginName);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(
-                        string.Format("Exception during re-publish event {0} to plugin {1}. Message: {2}. In next time the event will be re-send.", aEvent,
-                            pluginName, ex.Message), ex);
-                }
-
-                return false;
-            }
-        }
-
     }
 }

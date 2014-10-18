@@ -1,7 +1,7 @@
 using System;
 using TeoVincent.EventAggregator.Common.Events;
 
-namespace TeoVincent.EventAggregator.Service.UnitTests
+namespace TeoVincent.EventAggregator.Service.UnitTests.Mocks
 {
     public class ErrorsHandlerCheckable_Mock : IErrorsHandler
     {

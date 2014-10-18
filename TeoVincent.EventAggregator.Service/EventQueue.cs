@@ -28,7 +28,7 @@ using TeoVincent.EventAggregator.Common.Events;
 
 namespace TeoVincent.EventAggregator.Service
 {
-	public class PluginsQueuedEvent : IPluginsQueuedEvent
+	public class EventQueue : IEventQueue
 	{
 		private readonly Dictionary<string, Queue<AEvent>> unpublishedEvents = new Dictionary<string, Queue<AEvent>>();
 

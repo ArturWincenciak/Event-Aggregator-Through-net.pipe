@@ -29,8 +29,7 @@ using System.ServiceModel;
 namespace TeoVincent.EventAggregator.Service
 {
     /// <summary>
-    /// Punkt startowy pluginu. Bardzo ważne jest aby ten plugin startował jako pierwszy.
-    /// Kwestię tą należy dopimplentować po strocnie ASM.Core.
+    /// Starting point.
     /// </summary>
     public class EventAggregatorMain
     {
@@ -45,7 +44,7 @@ namespace TeoVincent.EventAggregator.Service
             }
             catch (Exception ex)
             {
-                Console.WriteLine(string.Format("EXCEPTION => {0}\n{1}", ex.Message, ex.StackTrace));
+                Console.WriteLine("EXCEPTION => {0}\n{1}", ex.Message, ex.StackTrace);
             }
            
         }
@@ -59,7 +58,7 @@ namespace TeoVincent.EventAggregator.Service
             }
             catch (Exception ex)
             {
-                Console.WriteLine(string.Format("EXCEPTION => {0}\n{1}", ex.Message, ex.StackTrace));
+                Console.WriteLine("EXCEPTION => {0}\n{1}", ex.Message, ex.StackTrace);
                 
             }
             finally
