@@ -24,6 +24,7 @@
 // SOFTWARE.
 #endregion
 using System.Threading;
+using Rhino.Mocks;
 using TeoVincent.EventAggregator.Client.UnitTests.EventMocks;
 using TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks;
 using TeoVincent.EventAggregator.Common;
@@ -31,36 +32,78 @@ using Xunit;
 
 namespace TeoVincent.EventAggregator.Client.UnitTests
 {
-    public class Simple_EventAggeregator_Tester
+    public class EventAggeregatorTester
     {
         private readonly IEventAggregator eventAggregator;
 
-        public Simple_EventAggeregator_Tester()
+        public EventAggeregatorTester()
         {
             var syncContexts = new SynchronizationContext();
             eventAggregator = new EventAggregator(syncContexts);
         }
+        
+        [Fact]
+        public void By_Rhino_Mock_Subscribe_Listener_Publish_Event_Assert_If_Handle_Method_Was_Called_Test()
+        {
+            // 1) arrange
+            var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
+            eventAggregator.Subscribe(listener);
+            var e = new Simple_MockEvent();
+
+            // 2) act
+            eventAggregator.Publish(e);
+
+            // 3) assert
+            listener.AssertWasCalled(l => l.Handle(e));
+        }
 
         [Fact]
-        public void EventAggregator_Assert_Not_Null()
+        public void By_Rhino_Mock_Subscribe_Listener_Publish_Event_Assert_If_Handle_Method_Was_Not_Called_With_Another_Event_Test()
         {
-            Assert.NotNull(eventAggregator);
+            // 1) arrange
+            var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
+            eventAggregator.Subscribe(listener);
+            var e = new Simple_MockEvent();
+            var anotherEvent = new Simple_MockEvent();
+
+            // 2) act
+            eventAggregator.Publish(e);
+
+            // 3) assert
+            listener.AssertWasNotCalled(l => l.Handle(anotherEvent));
+        }
+
+        [Fact]
+        public void Publish_Event_More_Then_One_The_Same_Type_Of_Event_Test()
+        {
+            // 1) arrange
+            var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
+            eventAggregator.Subscribe(listener);
+            var e1 = new Simple_MockEvent();
+            var e2 = new Simple_MockEvent();
+
+            // 2) act
+            eventAggregator.Publish(e1);
+            eventAggregator.Publish(e2);
+
+            // 3) assert
+            listener.AssertWasCalled(l => l.Handle(e1));
+            listener.AssertWasCalled(l => l.Handle(e2));
         }
 
         [Fact]
         public void Subscribe_And_Publish_Event_Assert_Equals_Events_Test()
         {
             // 1) arrange
-            var listener = new Simple_MockListener();
-            eventAggregator.Subscribe(listener);
+            var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
             var e = new Simple_MockEvent();
 
             // 2) act
+            eventAggregator.Subscribe(listener);
             eventAggregator.Publish(e);
-            bool actual = listener.Event.Equals(e);
 
             // 3) assert
-            Assert.True(actual);
+            listener.AssertWasCalled(x => x.Handle(e));
         }
 
         [Fact]

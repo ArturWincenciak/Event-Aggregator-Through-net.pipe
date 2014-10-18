@@ -31,16 +31,16 @@ namespace TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks
 {
     public class CallHandleCounter_MockListener : IListener<Simple_MockEvent>
     {
-        public int CountOfCallsHandleMethod { get; private set; }
+        public int RepeatTimes { get; private set; }
 
         public CallHandleCounter_MockListener()
         {
-            CountOfCallsHandleMethod = 0;
+            RepeatTimes = 0;
         }
 
         public void Handle(Simple_MockEvent receivedEvent)
         {
-            CountOfCallsHandleMethod++;
+            RepeatTimes++;
         }
     }
 }

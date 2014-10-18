@@ -96,12 +96,11 @@ namespace TeoVincent.EventAggregator.Service.UnitTests.EventQueueTests
             eventConteiner.Store(pluginName, e);
             eventConteiner.Publish(pluginName, publisher);
             eventConteiner.Publish(pluginName, publisher);
-            int expectedRepeat = 1;
 
             // 3) assert
             publisher.AssertWasCalled(
                 example => example.Publish(e),
-                options => options.Repeat.Times(expectedRepeat)
+                options => options.Repeat.Once()            
             );
         }
 
@@ -116,12 +115,11 @@ namespace TeoVincent.EventAggregator.Service.UnitTests.EventQueueTests
             eventConteiner.Store(pluginName, anotherEvent);
             eventConteiner.Publish(pluginName, publisher);
             eventConteiner.Publish(pluginName, publisher);
-            int expectedRepeat = 1;
 
             // 3) assert
             publisher.AssertWasCalled(
                 example => example.Publish(e),
-                options => options.Repeat.Times(expectedRepeat)
+                options => options.Repeat.Once()
             );
         }
     }

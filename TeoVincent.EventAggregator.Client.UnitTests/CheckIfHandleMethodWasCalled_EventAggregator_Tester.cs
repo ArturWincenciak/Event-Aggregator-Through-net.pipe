@@ -51,7 +51,7 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
 
             // 2) act
             eventAggregator.Publish(e);
-            bool actual = listener.WasCalledHandleMethod;
+            bool actual = listener.WasCalled;
 
             // 3) assert
             Assert.True(actual);

@@ -31,16 +31,16 @@ namespace TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks
 {
     public class CallHandleChecker_MockListener : IListener<Simple_MockEvent>
     {
-        public bool WasCalledHandleMethod { get; private set; }
+        public bool WasCalled { get; private set; }
 
         public CallHandleChecker_MockListener()
         {
-            WasCalledHandleMethod = false;
+            WasCalled = false;
         }
 
         public void Handle(Simple_MockEvent receivedEvent)
         {
-            WasCalledHandleMethod = true;
+            WasCalled = true;
         }
     }
 }

@@ -5,26 +5,26 @@ namespace TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks
 {
     public class CallHandleCounter_ForTwoEvents_MockListener : IListener<Simple_MockEvent>, IListener<Another_MockEvent>
     {
-        public int CountOfCallSimplyEvent { get; private set; }
+        public int RepeatTimesSimplyEvent { get; private set; }
 
-        public int CountOfCallAnotherEvent { get; private set; }
+        public int RepeatTimesAnotherEvent { get; private set; }
 
-        public int CountOfCallBothEvents { get { return CountOfCallAnotherEvent + CountOfCallSimplyEvent; } }
+        public int RepeatTimesBothEvents { get { return RepeatTimesAnotherEvent + RepeatTimesSimplyEvent; } }
 
         public CallHandleCounter_ForTwoEvents_MockListener()
         {
-            CountOfCallSimplyEvent = 0;
-            CountOfCallAnotherEvent = 0;
+            RepeatTimesSimplyEvent = 0;
+            RepeatTimesAnotherEvent = 0;
         }
 
         public void Handle(Simple_MockEvent receivedEvent)
         {
-            CountOfCallSimplyEvent++;
+            RepeatTimesSimplyEvent++;
         }
 
         public void Handle(Another_MockEvent receivedEvent)
         {
-            CountOfCallAnotherEvent++;
+            RepeatTimesAnotherEvent++;
         }
     }
 }
