@@ -50,6 +50,7 @@
     <Compile Include="EventAggregatorServiceTests\EventAggregatorServiceTester.cs" />
     <Compile Include="EventQueueTests\DequeueMoreTheOneEventTester.cs" />
     <Compile Include="EventQueueTests\CountEventQueueTester.cs" />
+    <Compile Include="EventQueueTests\UnpublishedEventsContainerTester.cs" />
     <Compile Include="Mocks\Event_Mock.cs" />
     <Compile Include="Mocks\PublisherCreator_Mock.cs" />
     <Compile Include="Mocks\EventPublisher_Mock.cs" />
