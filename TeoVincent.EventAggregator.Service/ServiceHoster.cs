@@ -25,6 +25,7 @@
 #endregion
 using System;
 using System.ServiceModel;
+using NLog;
 
 namespace TeoVincent.EventAggregator.Service
 {
@@ -33,10 +34,20 @@ namespace TeoVincent.EventAggregator.Service
     /// </summary>
     public class ServiceHoster
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        
         public void Host()
         {
             try
             {
+                logger.Trace("Sample trace message");
+                logger.Debug("Sample debug message");
+                logger.Info("Sample informational message");
+                logger.Warn("Sample warning message");
+                logger.Error("Sample error message");
+                logger.Fatal("Sample fatal error message");
+                
+                
                 Console.WriteLine("EventAggregatorService service starting.");
                 host = new ServiceHost(typeof(EventAggregatorService));
                 host.Open();
