@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("TeoVincent.FirstExampleApp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Artur Wincenciak TeoVincent")]
 [assembly: AssemblyProduct("TeoVincent.FirstExampleApp")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]

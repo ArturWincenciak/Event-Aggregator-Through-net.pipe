@@ -30,11 +30,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WindEnergy.Siren.Plugin.EA")]
+[assembly: AssemblyTitle("TeoVincent.EventAggregator.Service")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Artur Wincenciak TeoVincent")]
-[assembly: AssemblyProduct("WindEnergy.Siren.Plugin.EA")]
+[assembly: AssemblyProduct("TeoVincent.EventAggregator.Service")]
 [assembly: AssemblyCopyright("Copyright ©  2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
