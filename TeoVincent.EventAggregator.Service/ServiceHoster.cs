@@ -40,22 +40,14 @@ namespace TeoVincent.EventAggregator.Service
         {
             try
             {
-                logger.Trace("Sample trace message");
-                logger.Debug("Sample debug message");
-                logger.Info("Sample informational message");
-                logger.Warn("Sample warning message");
-                logger.Error("Sample error message");
-                logger.Fatal("Sample fatal error message");
-                
-                
-                Console.WriteLine("EventAggregatorService service starting.");
+                logger.Info("EventAggregatorService service starting.");
                 host = new ServiceHost(typeof(EventAggregatorService));
                 host.Open();
-                Console.WriteLine("EventAggregatorService service started.");
+                logger.Info("EventAggregatorService service started.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("EXCEPTION => {0}\n{1}", ex.Message, ex.StackTrace);
+                logger.Fatal("EXCEPTION => {0}\n{1}", ex.Message, ex.StackTrace);
             }
            
         }
@@ -69,8 +61,7 @@ namespace TeoVincent.EventAggregator.Service
             }
             catch (Exception ex)
             {
-                Console.WriteLine("EXCEPTION => {0}\n{1}", ex.Message, ex.StackTrace);
-                
+                logger.Error("EXCEPTION => {0}\n{1}", ex.Message, ex.StackTrace);
             }
             finally
             {
