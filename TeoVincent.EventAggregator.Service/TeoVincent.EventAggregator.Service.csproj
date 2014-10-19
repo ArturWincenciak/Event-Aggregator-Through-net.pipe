@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CurrentContextCallbackCreator.cs" />
-    <Compile Include="EventAggregatorMain.cs" />
+    <Compile Include="ServiceHoster.cs" />
     <Compile Include="IEventContainer.cs" />
     <Compile Include="IPublisherCreator.cs" />
     <Compile Include="IErrorsHandler.cs" />

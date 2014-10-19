@@ -31,9 +31,9 @@ namespace TeoVincent.EventAggregator.Service
     /// <summary>
     /// Starting point.
     /// </summary>
-    public class EventAggregatorMain
+    public class ServiceHoster
     {
-        public void InitPlugin()
+        public void Host()
         {
             try
             {
@@ -49,7 +49,7 @@ namespace TeoVincent.EventAggregator.Service
            
         }
 
-        public void StopPlugin()
+        public void DontHost()
         {
             try
             {

@@ -32,11 +32,13 @@ namespace TeoVincent.HostEventAggregator
     {
         static void Main(string[] args)
         {
-            var eaMain = new EventAggregatorMain();
-            eaMain.InitPlugin();
+            var hoster = new ServiceHoster();
+            hoster.Host();
 
+            Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
-            eaMain.StopPlugin();
+            
+            hoster.DontHost();
         }
     }
 }
