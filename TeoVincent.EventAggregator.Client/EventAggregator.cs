@@ -31,8 +31,6 @@ using System.Threading;
 using TeoVincent.EventAggregator.Common;
 using TeoVincent.EventAggregator.Common.Events;
 
-[assembly: InternalsVisibleTo("TeoVincent.EventAggregator.Client.UnitTests")]
-
 namespace TeoVincent.EventAggregator.Client
 {
     internal sealed class EventAggregator : IEventAggregator
