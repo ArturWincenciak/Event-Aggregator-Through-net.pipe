@@ -43,7 +43,7 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
         }
         
         [Fact]
-        public void By_Rhino_Mock_Subscribe_Listener_Publish_Event_Assert_If_Handle_Method_Was_Called_Test()
+        public void Subscribe_Publish_Call_Handle_Validate()
         {
             // 1) arrange
             var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
@@ -58,7 +58,7 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
         }
 
         [Fact]
-        public void By_Rhino_Mock_Subscribe_Listener_Publish_Event_Assert_If_Handle_Method_Was_Not_Called_With_Another_Event_Test()
+        public void Subscribe_Publish_Was_Not_Call_Validate()
         {
             // 1) arrange
             var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
@@ -74,7 +74,7 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
         }
 
         [Fact]
-        public void Publish_Event_More_Then_One_The_Same_Type_Of_Event_Test()
+        public void Subscribe_Publish_Difirent_Events_Call_Handle_Validate()
         {
             // 1) arrange
             var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
@@ -92,7 +92,7 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
         }
 
         [Fact]
-        public void Subscribe_And_Publish_Event_Assert_Equals_Events_Test()
+        public void Subscribe_Publish_Generic_Call_Handle_Validate()
         {
             // 1) arrange
             var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
@@ -107,7 +107,7 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
         }
 
         [Fact]
-        public void Subscribe_And_Publish_By_Generic_Notation_Event_Assert_Not_Null_Test()
+        public void Subscribe_Publish_Generic_Not_Null_Event_Vaslidate()
         {
             // 1) arrange
             var listener = new Simple_MockListener();
@@ -121,7 +121,7 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
         }
 
         [Fact]
-        public void Subscribe_And_Publish_By_Generic_Notation_Event_Assert_Type_Test()
+        public void Subscribe_Publish_The_Same_Info_In_Event_Validate()
         {
             // 1) arrange
             var listener = new Simple_MockListener();

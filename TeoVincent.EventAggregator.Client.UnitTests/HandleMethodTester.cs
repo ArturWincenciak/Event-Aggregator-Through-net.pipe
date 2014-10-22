@@ -31,11 +31,11 @@ using Xunit;
 
 namespace TeoVincent.EventAggregator.Client.UnitTests
 {
-    public class CheckIfHandleMethodWasCalled_EventAggregator_Tester
+    public class HandleMethodTester
     {
         private readonly IEventAggregator eventAggregator;
 
-        public CheckIfHandleMethodWasCalled_EventAggregator_Tester()
+        public HandleMethodTester()
         {
             var syncContexts = new SynchronizationContext();
             eventAggregator = new EventAggregator(syncContexts);
