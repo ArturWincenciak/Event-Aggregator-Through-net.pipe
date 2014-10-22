@@ -44,4 +44,12 @@ namespace TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks
             Event = receivedEvent;
         }
     }
+
+    public class Another_MockListener : IListener<Another_MockEvent>
+    {
+        public void Handle(Another_MockEvent receivedEvent)
+        {
+            
+        }
+    }
 }
