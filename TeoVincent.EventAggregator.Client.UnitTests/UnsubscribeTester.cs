@@ -116,5 +116,19 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
             Assert.DoesNotContain(listener, listeners[typeof(Simple_MockEvent)]);
             Assert.Contains(listener, listeners[typeof(Another_MockEvent)]);
         }
+
+        [Fact]
+        public void Unsubscribe_Not_Contains_Listener()
+        {
+            // 1) arrange
+            var listener = new Simple_MockListener();
+
+            // 2) act
+            eventAggregator.Unsubscribe(listener);
+
+            // 3) assert
+            Dictionary<Type, List<IListener>> listeners = FieldReflector.GetListeners(eventAggregator);
+            Assert.DoesNotContain(typeof(Simple_MockEvent), listeners.Keys);
+        }
     }
 }
