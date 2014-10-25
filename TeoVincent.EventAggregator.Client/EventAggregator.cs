@@ -128,10 +128,8 @@ namespace TeoVincent.EventAggregator.Client
                     listeners.Add(typeOfEvent, new List<IListener>());
 
                 if (listeners[typeOfEvent].Contains(listener))
-                    throw new AttemptSubscribeTheSameListenerTwoTimesException(listener);
-                
-                    //throw new InvalidOperationException("You're not supposed to register to the same event twice");
-
+                    throw new SubscribeTheSameMoreThenOneException(listener);
+      
                 listeners[typeOfEvent].Add(listener);
             }
         }

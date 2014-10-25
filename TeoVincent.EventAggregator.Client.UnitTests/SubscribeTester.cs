@@ -107,7 +107,7 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
             var listiner = new Simple_MockListener();
         
             // act // assert
-            Assert.Throws<AttemptSubscribeTheSameListenerTwoTimesException>(() =>
+            Assert.Throws<SubscribeTheSameMoreThenOneException>(() =>
             {
                 eventAggregator.Subscribe(listiner);
                 eventAggregator.Subscribe(listiner);
@@ -126,7 +126,7 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
                 eventAggregator.Subscribe(listiner);
                 eventAggregator.Subscribe(listiner);
             }
-            catch (AttemptSubscribeTheSameListenerTwoTimesException ex)
+            catch (SubscribeTheSameMoreThenOneException ex)
             {
                 // assert
                 Assert.Same(listiner, ex.Listener);

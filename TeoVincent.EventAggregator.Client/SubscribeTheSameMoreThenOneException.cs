@@ -3,7 +3,7 @@ using TeoVincent.EventAggregator.Common;
 
 namespace TeoVincent.EventAggregator.Client
 {
-    internal class AttemptSubscribeTheSameListenerTwoTimesException : Exception
+    internal class SubscribeTheSameMoreThenOneException : Exception
     {
         private readonly IListener listener;
 
@@ -12,7 +12,7 @@ namespace TeoVincent.EventAggregator.Client
             get { return listener; }
         }
 
-        public AttemptSubscribeTheSameListenerTwoTimesException(IListener listener)
+        public SubscribeTheSameMoreThenOneException(IListener listener)
         {
             this.listener = listener;
         }
