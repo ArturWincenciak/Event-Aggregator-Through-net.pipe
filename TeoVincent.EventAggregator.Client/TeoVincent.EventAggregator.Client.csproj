@@ -42,22 +42,20 @@
   <ItemGroup>
     <Compile Include="EventAggregator.cs" />
     <Compile Include="EventAggregatorClient.cs" />
-    <Compile Include="EventAggregatorClientManage.cs" />
-    <Compile Include="EventAggregatorServiceProxy.cs" />
-    <Compile Include="EventAggregatorSingleton.cs" />
+    <Compile Include="EAClientHoster.cs" />
+    <Compile Include="EAServiceProxy.cs" />
     <Compile Include="EventPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PublishSwitcher.Partial1.cs" />
-    <Compile Include="PublishSwitcher.Partial2.cs" />
+    <Compile Include="PublishSwitherPartials\IPublishSwitcher.cs" />
+    <Compile Include="PublishSwitherPartials\PublishSwitcher.ExamplePartial.cs" />
+    <Compile Include="PublishSwitherPartials\PublishSwitcher.PartialMain.cs" />
+    <Compile Include="PublishSwitherPartials\PublishSwitcher.IVRPartial.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EventAggregator.Common.csproj">
       <Project>{CF2E9462-4B3C-45DA-8A79-75583A03F5F3}</Project>
       <Name>TeoVincent.EventAggregator.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cd1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,57 +1,30 @@
-﻿#region Licence
-// The MIT License (MIT)
-// 
-// Copyright (c) 2014 TeoVincent Artur Wincenciak
-// TeoVincent.EventAggregator2013
-// TeoVincent.EventAggregator.Client
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-#endregion
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
 using System.Timers;
 using TeoVincent.EventAggregator.Common.Events;
 using TeoVincent.EventAggregator.Common.Service;
+using Timer = System.Timers.Timer;
 
 namespace TeoVincent.EventAggregator.Client
 {
-	internal sealed class EventAggregatorClientManage
+	internal sealed class EAClientHoster
     {
-        public static EventAggregatorClientManage Instance
-		{
-			get
-			{
-				if (eaInstance == null)
-				{
-					lock (objSyncRoot)
-					{
-						eaInstance = new EventAggregatorClientManage();
-					}
-				}
+        private static volatile EAServiceProxy eaServiceProxy;
+        private static volatile string pluginName;
+        private static readonly Queue<AEvent> enqueuedEvent = new Queue<AEvent>();
+        private static volatile Timer subscribePluginTimer;
+        private static readonly object objSyncRoot = new Object();
+	    private readonly IEventPublisher eventPublisher;
 
-				return eaInstance;
-			}
-		}
+	    public EAClientHoster(IEventPublisher eventPublisher)
+	    {
+	        this.eventPublisher = eventPublisher;
 
-        /// <summary>
+	        Init();
+	    }
+
+	    /// <summary>
         /// Example test method. Convert int to string.
         /// </summary>
 		public string GetData(int value)
@@ -138,7 +111,7 @@ namespace TeoVincent.EventAggregator.Client
 		{
 			lock (objSyncRoot)
 			{
-				try
+                try
 				{
 					if (ServiceIsOpened() == false)
 					{
@@ -158,51 +131,46 @@ namespace TeoVincent.EventAggregator.Client
 			}
 		}
 
-        private EventAggregatorClientManage()
-		{
-			Init();
-		}
+	    private bool Init(int index = 0)
+	    {
+	        lock (objSyncRoot)
+	        {
+	            if (index >= 3)
+	                return false;
 
-		private bool Init(int index = 0)
-		{
-			lock (objSyncRoot)
-			{
-				if (index >= 3)
-					return false;
+	            if (eaServiceProxy != null)
+	                if (eaServiceProxy.State == CommunicationState.Opened)
+	                    return true;
 
-				if (eaServiceProxy != null)
-					if (eaServiceProxy.State == CommunicationState.Opened)
-						return true;
+	            var endpointAddress = new EndpointAddress("net.pipe://localhost/EventAggregator");
+	            var serviceBinding = new NetNamedPipeBinding();
+	            serviceBinding.ReceiveTimeout = TimeSpan.MaxValue;
+	            serviceBinding.ReaderQuotas.MaxDepth = 32000;
 
-				var endpointAddress = new EndpointAddress("net.pipe://localhost/EventAggregator");
-				var serviceBinding = new NetNamedPipeBinding();
-				serviceBinding.ReceiveTimeout = TimeSpan.MaxValue;
-				serviceBinding.ReaderQuotas.MaxDepth = 32000;
+	            var evntCntx = new InstanceContext(eventPublisher);
 
-				IEventPublisher evnt = new EventPublisher();
-				var evntCntx = new InstanceContext(evnt);
+	            try
+	            {
+	                eaServiceProxy = new EAServiceProxy(evntCntx, serviceBinding, endpointAddress);
+	                eaServiceProxy.Open();
+	                if (pluginName != null)
+	                {
+	                    SubscribePlugin(pluginName);
+	                    PublishEnqueuedEvent();
+	                }
 
-				try
-				{
-					eaServiceProxy = new EventAggregatorServiceProxy(evntCntx, serviceBinding, endpointAddress);
-					eaServiceProxy.Open();
-					if (pluginName != null)
-					{
-						SubscribePlugin(pluginName);
-						PublishEnqueuedEvent();
-					}
+	                return true;
+	            }
+	            catch (Exception ex)
+	            {
+	                Console.WriteLine(
+	                    String.Format("Exception during initialize client side {0}. Message: {1}. Will be re+subscribe in next time.", pluginName, ex.Message), ex);
+	                return Init(++index);
+	            }
+	        }
+	    }
 
-					return true;
-				}
-				catch (Exception ex)
-				{
-                    Console.WriteLine(String.Format("Exception during initialize client side {0}. Message: {1}. Will be re+subscribe in next time.", pluginName, ex.Message), ex);
-					return Init(++index);
-				}
-			}
-		}
-
-		private void EnqueueEventToPublish(AEvent aEvent)
+	    private void EnqueueEventToPublish(AEvent aEvent)
 		{
 			lock (objSyncRoot)
 			{
@@ -301,12 +269,5 @@ namespace TeoVincent.EventAggregator.Client
 				}
 			}
 		}
-
-		private static volatile EventAggregatorClientManage eaInstance;
-		private static volatile EventAggregatorServiceProxy eaServiceProxy;
-		private static volatile string pluginName;
-		private static readonly Queue<AEvent> enqueuedEvent = new Queue<AEvent>();
-		private static volatile Timer subscribePluginTimer;
-		private static readonly object objSyncRoot = new Object();
 	}
 }

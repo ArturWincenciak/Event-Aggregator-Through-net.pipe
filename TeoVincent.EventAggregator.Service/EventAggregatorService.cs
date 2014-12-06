@@ -44,6 +44,9 @@ namespace TeoVincent.EventAggregator.Service
         private readonly IPublisherCreator publisherCreator;
         private readonly IEventContainer unpublishedEvents;
 
+        /// <summary>
+        /// Ctor. for WCF service hosting.
+        /// </summary>
         public EventAggregatorService()
         {
             syncLock = new object();
@@ -54,6 +57,9 @@ namespace TeoVincent.EventAggregator.Service
             unpublishedEvents = new UnpublishedEventsContainer(ququedEventsQueue);
         }
 
+        /// <summary>
+        /// Ctor. for unit testing.
+        /// </summary>
         public EventAggregatorService(IErrorsHandler errorsHandler, IPublisherCreator publisherCreator, IEventContainer unpublishedEvents)
         {
             syncLock = new object();
