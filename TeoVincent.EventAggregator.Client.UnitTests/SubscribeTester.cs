@@ -96,7 +96,42 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
             int expectedCountAnotherEventListeners = 1;
 
             // 3) assert
-            Assert.Equal(expectedCountSimpleEventListeners, listeners[typeof(Simple_MockEvent)].Count);
-            Assert.Equal(expectedCountAnotherEventListeners, listeners[typeof(Another_MockEvent)].Count); }
+            Assert.Equal(expectedCountSimpleEventListeners, listeners[typeof (Simple_MockEvent)].Count);
+            Assert.Equal(expectedCountAnotherEventListeners, listeners[typeof (Another_MockEvent)].Count);
+        }
+
+        [Fact]
+        public void Subscribe_One_Listener_Two_Times_Validator()
+        {
+            // arrange
+            var listiner = new Simple_MockListener();
+        
+            // act // assert
+            Assert.Throws<SubscribeTheSameMoreThenOneException>(() =>
+            {
+                eventAggregator.Subscribe(listiner);
+                eventAggregator.Subscribe(listiner);
+            });
+        }
+
+        [Fact]
+        public void Subscribe_One_Listener_Two_Times_Catch_Validate()
+        {
+            // arrange
+            var listiner = new Simple_MockListener();
+
+            try
+            {
+                // act 
+                eventAggregator.Subscribe(listiner);
+                eventAggregator.Subscribe(listiner);
+            }
+            catch (SubscribeTheSameMoreThenOneException ex)
+            {
+                // assert
+                Assert.Same(listiner, ex.Listener);
+            }
+               
+        }
     }
 }
