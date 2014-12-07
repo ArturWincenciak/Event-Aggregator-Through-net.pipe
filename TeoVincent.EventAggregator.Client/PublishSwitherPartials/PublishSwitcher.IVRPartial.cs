@@ -1,7 +1,7 @@
-﻿using TeoVincent.EventAggregator.Common.Events;
-using TeoVincent.EventAggregator.Common.Events.Tts;
+﻿using TeoVincent.EA.Common.Events;
+using TeoVincent.EA.Common.Events.Tts;
 
-namespace TeoVincent.EventAggregator.Client.PublishSwitherPartials
+namespace TeoVincent.EA.Client.PublishSwitherPartials
 {
 	public partial class PublishSwitcher
 	{

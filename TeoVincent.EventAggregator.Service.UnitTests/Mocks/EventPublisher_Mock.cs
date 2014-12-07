@@ -1,7 +1,7 @@
-﻿using TeoVincent.EventAggregator.Common.Events;
-using TeoVincent.EventAggregator.Common.Service;
+﻿using TeoVincent.EA.Common.Events;
+using TeoVincent.EA.Common.Service;
 
-namespace TeoVincent.EventAggregator.Service.UnitTests.Mocks
+namespace TeoVincent.EA.Service.UnitTests.Mocks
 {
     public class EventPublisher_Mock : IEventPublisher
     {

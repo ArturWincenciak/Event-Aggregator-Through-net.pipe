@@ -1,10 +1,9 @@
-﻿using System;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using System.ServiceModel.Channels;
-using TeoVincent.EventAggregator.Common.Events;
-using TeoVincent.EventAggregator.Common.Service;
+using TeoVincent.EA.Common.Events;
+using TeoVincent.EA.Common.Service;
 
-namespace TeoVincent.EventAggregator.Client
+namespace TeoVincent.EA.Client
 {
     /// <summary>
     /// Proxy for servis.

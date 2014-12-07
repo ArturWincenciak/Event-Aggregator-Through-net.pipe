@@ -1,7 +1,7 @@
-using TeoVincent.EventAggregator.Common.Events;
-using TeoVincent.EventAggregator.Common.Service;
+using TeoVincent.EA.Common.Events;
+using TeoVincent.EA.Common.Service;
 
-namespace TeoVincent.EventAggregator.Service
+namespace TeoVincent.EA.Service
 {
     public interface IEventContainer
     {

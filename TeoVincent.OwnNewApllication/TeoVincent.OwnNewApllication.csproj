@@ -49,13 +49,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TeoVincent.EventAggregator.Client\TeoVincent.EventAggregator.Client.csproj">
+    <ProjectReference Include="..\TeoVincent.EventAggregator.Client\TeoVincent.EA.Client.csproj">
       <Project>{6a6e9994-b2a3-42f8-87a8-2bafc7846076}</Project>
-      <Name>TeoVincent.EventAggregator.Client</Name>
+      <Name>TeoVincent.EA.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EventAggregator.Common.csproj">
+    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EA.Common.csproj">
       <Project>{cf2e9462-4b3c-45da-8a79-75583a03f5f3}</Project>
-      <Name>TeoVincent.EventAggregator.Common</Name>
+      <Name>TeoVincent.EA.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,10 +1,9 @@
-﻿using System;
-using System.ServiceModel;
-using TeoVincent.EventAggregator.Client.PublishSwitherPartials;
-using TeoVincent.EventAggregator.Common.Events;
-using TeoVincent.EventAggregator.Common.Service;
+﻿using System.ServiceModel;
+using TeoVincent.EA.Client.PublishSwitherPartials;
+using TeoVincent.EA.Common.Events;
+using TeoVincent.EA.Common.Service;
 
-namespace TeoVincent.EventAggregator.Client
+namespace TeoVincent.EA.Client
 {
     /// <summary>
     /// Implementation of callback interface EA service. By this callback each

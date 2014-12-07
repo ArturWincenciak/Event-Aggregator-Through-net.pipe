@@ -8,8 +8,8 @@
     <ProjectGuid>{6A6E9994-B2A3-42F8-87A8-2BAFC7846076}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TeoVincent.EventAggregator.Client</RootNamespace>
-    <AssemblyName>TeoVincent.EventAggregator.Client</AssemblyName>
+    <RootNamespace>TeoVincent.EA.Client</RootNamespace>
+    <AssemblyName>TeoVincent.EA.Client</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -41,21 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TheSameListenerAlreadySubscribedException.cs" />
+    <Compile Include="InternalEventAggregatorEngine.cs" />
     <Compile Include="EventAggregator.cs" />
-    <Compile Include="EventAggregatorClient.cs" />
     <Compile Include="EAClientHoster.cs" />
     <Compile Include="EAServiceProxy.cs" />
     <Compile Include="EventPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublishSwitherPartials\IPublishSwitcher.cs" />
     <Compile Include="PublishSwitherPartials\PublishSwitcher.ExamplePartial.cs" />
-    <Compile Include="PublishSwitherPartials\PublishSwitcher.PartialMain.cs" />
+    <Compile Include="PublishSwitherPartials\PublishSwitcher.cs" />
     <Compile Include="PublishSwitherPartials\PublishSwitcher.IVRPartial.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EventAggregator.Common.csproj">
+    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EA.Common.csproj">
       <Project>{CF2E9462-4B3C-45DA-8A79-75583A03F5F3}</Project>
-      <Name>TeoVincent.EventAggregator.Common</Name>
+      <Name>TeoVincent.EA.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

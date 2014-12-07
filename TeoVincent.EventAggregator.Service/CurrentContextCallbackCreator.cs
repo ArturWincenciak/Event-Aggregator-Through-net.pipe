@@ -1,7 +1,7 @@
 ﻿using System.ServiceModel;
-using TeoVincent.EventAggregator.Common.Service;
+using TeoVincent.EA.Common.Service;
 
-namespace TeoVincent.EventAggregator.Service
+namespace TeoVincent.EA.Service
 {
     public class CurrentContextCallbackCreator : IPublisherCreator
     {

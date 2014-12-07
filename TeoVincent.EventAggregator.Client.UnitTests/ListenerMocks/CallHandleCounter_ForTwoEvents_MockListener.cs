@@ -1,7 +1,7 @@
-using TeoVincent.EventAggregator.Client.UnitTests.EventMocks;
-using TeoVincent.EventAggregator.Common;
+using TeoVincent.EA.Client.UnitTests.EventMocks;
+using TeoVincent.EA.Common;
 
-namespace TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks
+namespace TeoVincent.EA.Client.UnitTests.ListenerMocks
 {
     public class CallHandleCounter_ForTwoEvents_MockListener : IListener<Simple_MockEvent>, IListener<Another_MockEvent>
     {

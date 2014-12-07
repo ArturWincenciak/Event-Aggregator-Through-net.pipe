@@ -1,129 +1,118 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using TeoVincent.EventAggregator.Common;
-using TeoVincent.EventAggregator.Common.Events;
+using TeoVincent.EA.Client.PublishSwitherPartials;
+using TeoVincent.EA.Common;
+using TeoVincent.EA.Common.Events;
+using TeoVincent.EA.Common.Service;
 
-namespace TeoVincent.EventAggregator.Client
+namespace TeoVincent.EA.Client
 {
-    internal sealed class EventAggregator : IEventAggregator
-    {
-        private readonly object syncLock = new object();
-        private readonly SynchronizationContext context;
-        private readonly Dictionary<Type, List<IListener>> listeners = new Dictionary<Type, List<IListener>>();
+	/// <summary>
+	/// Main class which saves listeners and publishes events between the listeners.
+	/// </summary>
+	public sealed class EventAggregator
+	{
+        private static readonly object objSyncRoot = new Object();
+        private static volatile EventAggregator eaInstance;
+	    private readonly IEventAggregator eventAggregator;
+	    private readonly EAClientHoster eaClientHoster;
         
-        public EventAggregator(SynchronizationContext context)
-        {
-            this.context = context;
-        }
+		public static EventAggregator Instance
+		{
+			get
+			{
+				if (eaInstance == null)
+				{
+					lock (objSyncRoot)
+					{
+                        eaInstance = new EventAggregator();
+					}
+				}
 
-        /// <summary>
-        /// Add a listener to list of listeners. This method will be call
-        /// when the listener implements more then one interface of listener.
-        /// </summary>
-        public void Subscribe(IListener listener)
-        {
-            ForEachListener(listener, Subscribe);
-        }
+				return eaInstance;
+			}
+		}
 
-        /// <summary>
-        /// Add a listener to list of listeners.
-        /// </summary>
-        public void Subscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
-        {
-            Subscribe(typeof(TEvent), listener);
-        }
+	    public EventAggregator()
+	    {
+	        eventAggregator = new InternalEventAggregatorEngine(new SynchronizationContext());
+            var publishSwitcher = new PublishSwitcher(eventAggregator);
+            IEventPublisher evnt = new EventPublisher(publishSwitcher);
+            eaClientHoster = new EAClientHoster(evnt);
+	    }
 
-        /// <summary>
-        /// Remove a listener form list of listeners. This method will be call
-        /// when the listener implements more then one interface of listener.
-        /// </summary>
-        /// <param name="listener">Słuchacz.</param>
-        public void Unsubscribe(IListener listener)
-        {
-			ForEachListener(listener, Unsubscribe);
-        }
+	    #region IEventAggregatorService
 
-        /// <summary>
-        /// Remove a listener form list of listeners.
-        /// </summary>
-        public void Unsubscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
-        {
-			Unsubscribe(typeof(TEvent), listener);
-        }
+		/// <summary>
+		/// Example method.
+		/// </summary>
+		public string GetData(int value)
+		{
+            return eaClientHoster.GetData(value);
+		}
 
-        /// <summary>
-        /// Invoke a method Handle on each right listener (listener which
-        /// implements interface parameterized this event type). This method
-        /// parametrize automatically based on type of argument this method.
-        /// </summary>
-        public void Publish<TEvent>(TEvent e) where TEvent : AEvent
-        {
-            lock (syncLock)
-            {
-				var typeOfEvent = typeof(TEvent);
-				
-				if (!listeners.ContainsKey(typeOfEvent))
-                    return;
+		/// <summary>
+		/// Subscribe plug in (appdomain) for listening events.
+		/// </summary>
+		/// <param name="strName">Name of plugin. Have to be unique.</param>
+		public void SubscribePlugin(string strName)
+		{
+            eaClientHoster.SubscribePlugin(strName);
+		}
 
-                foreach (var listener in listeners[typeOfEvent])
-                {
-                    var typedReference = (IListener<TEvent>)listener;
-                    context.Send(state => typedReference.Handle(e), null);
-                }
-            }
-        }
+		/// <summary>
+        /// Unsubscribe plug in (appdomain) for listening events.
+		/// </summary>
+        /// <param name="strName">Name of plugin.</param>
+		public void UnsubscribePlugin(string strName)
+		{
+            eaClientHoster.UnsubscribePlugin(strName);
+		}
 
-        /// <summary>
-        /// Invoke a method Handle on each right listener (listener which
-        /// implements interface parameterized this event type). We have to 
-        /// manifestly define type of parameter. 
-        /// </summary>
-        public void Publish<TEvent>() where TEvent : AEvent, new()
-        {
-			Publish(new TEvent());
-        }
+		/// <summary>
+		/// Publish event between all plugins (appdomains) using net.pipe.
+		/// </summary>
+		/// <param name="e">Event</param>
+		/// <example>EventAggregator.Instance.GlobalPublish(new SomeEvent());</example>
+		public void GlobalPublish(AEvent e)
+		{
+            eaClientHoster.GlobalPublish(e);
+		}
 
-        private void Unsubscribe(Type typeOfEvent, IListener listener)
-        {
-            lock (syncLock)
-            {
-                if (listeners.ContainsKey(typeOfEvent))
-                    listeners[typeOfEvent].Remove(listener);
-            }
-        }
+		#endregion IEventAggregatorService
 
-        private void Subscribe(Type typeOfEvent, IListener listener)
-        {
-            lock (syncLock)
-            {
-                if (!listeners.ContainsKey(typeOfEvent))
-                    listeners.Add(typeOfEvent, new List<IListener>());
+		#region IEventAggregator
 
-                if (listeners[typeOfEvent].Contains(listener))
-                    throw new TheSameListenerAlreadySubscribedException(listener);
-      
-                listeners[typeOfEvent].Add(listener);
-            }
-        }
-        
-        private static void ForEachListener(IListener listener, Action<Type, IListener> action)
-        {
-            var listenerTypeName = typeof(IListener).Name;
+		public void LocalPublish<TEvent>(TEvent message) where TEvent : AEvent, new()
+		{
+            eventAggregator.Publish(message);
+		}
 
-            foreach (var interfaceType in listener.GetType().GetInterfaces().Where(i => i.Name.StartsWith(listenerTypeName)))
-            {
-                Type typeOfEvent = GetEventType(interfaceType);
+		public void LocalPublish<TEvent>() where TEvent : AEvent, new()
+		{
+            eventAggregator.Publish<TEvent>();
+		}
 
-                if (typeOfEvent != null)
-                    action(typeOfEvent, listener);
-            }
-        }
+		public void Subscribe(IListener listener)
+		{
+            eventAggregator.Subscribe(listener);
+		}
 
-        private static Type GetEventType(Type type)
-        {
-            return type.GetGenericArguments().Any() ? type.GetGenericArguments()[0] : null;
-        }
-    }
+		public void Unsubscribe(IListener listener)
+		{
+            eventAggregator.Unsubscribe(listener);
+		}
+
+		public void Subscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
+		{
+            eventAggregator.Subscribe(listener);
+		}
+
+		public void Unsubscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
+		{
+            eventAggregator.Unsubscribe(listener);
+		}
+
+		#endregion IEventAggregator
+	}
 }

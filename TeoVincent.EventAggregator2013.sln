@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Library", ".Library", "{F0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{4E151C80-6695-420E-8969-F6E6D0B3D4EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EventAggregator.Client", "TeoVincent.EventAggregator.Client\TeoVincent.EventAggregator.Client.csproj", "{6A6E9994-B2A3-42F8-87A8-2BAFC7846076}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EA.Client", "TeoVincent.EventAggregator.Client\TeoVincent.EA.Client.csproj", "{6A6E9994-B2A3-42F8-87A8-2BAFC7846076}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EventAggregator.Common", "TeoVincent.EventAggregator.Common\TeoVincent.EventAggregator.Common.csproj", "{CF2E9462-4B3C-45DA-8A79-75583A03F5F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EA.Common", "TeoVincent.EventAggregator.Common\TeoVincent.EA.Common.csproj", "{CF2E9462-4B3C-45DA-8A79-75583A03F5F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EventAggregator.Common.UnitTests", "TeoVincent.EventAggregator.Common.UnitTests\TeoVincent.EventAggregator.Common.UnitTests.csproj", "{290FBB05-D8B2-4CC0-8C76-A0BE072D1B93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EA.Common.UnitTests", "TeoVincent.EventAggregator.Common.UnitTests\TeoVincent.EA.Common.UnitTests.csproj", "{290FBB05-D8B2-4CC0-8C76-A0BE072D1B93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EventAggregator.Service", "TeoVincent.EventAggregator.Service\TeoVincent.EventAggregator.Service.csproj", "{CB398281-BD8E-490E-88FB-60AB01BF7709}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EA.Service", "TeoVincent.EventAggregator.Service\TeoVincent.EA.Service.csproj", "{CB398281-BD8E-490E-88FB-60AB01BF7709}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.FirstExampleApp", "TeoVincent.FirstExampleApp\TeoVincent.FirstExampleApp.csproj", "{2ACE6759-8768-4B9D-8F89-C95A251AD85D}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -37,9 +37,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.OwnNewApllicatio
 		{C430DD9D-F796-4794-A54C-63BBDB76CD32} = {C430DD9D-F796-4794-A54C-63BBDB76CD32}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EventAggregator.Client.UnitTests", "TeoVincent.EventAggregator.Client.UnitTests\TeoVincent.EventAggregator.Client.UnitTests.csproj", "{C4821129-7A7C-40B8-906B-FB3324768626}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EA.Client.UnitTests", "TeoVincent.EventAggregator.Client.UnitTests\TeoVincent.EA.Client.UnitTests.csproj", "{C4821129-7A7C-40B8-906B-FB3324768626}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EventAggregator.Service.UnitTests", "TeoVincent.EventAggregator.Service.UnitTests\TeoVincent.EventAggregator.Service.UnitTests.csproj", "{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeoVincent.EA.Service.UnitTests", "TeoVincent.EventAggregator.Service.UnitTests\TeoVincent.EA.Service.UnitTests.csproj", "{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

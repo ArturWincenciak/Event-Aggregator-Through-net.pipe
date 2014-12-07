@@ -3,17 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{290FBB05-D8B2-4CC0-8C76-A0BE072D1B93}</ProjectGuid>
+    <ProjectGuid>{CF2E9462-4B3C-45DA-8A79-75583A03F5F3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TeoVincent.EventAggregator.Common.UnitTests</RootNamespace>
-    <AssemblyName>TeoVincent.EventAggregator.Common.UnitTests</AssemblyName>
+    <RootNamespace>TeoVincent.EA.Common</RootNamespace>
+    <AssemblyName>TeoVincent.EA.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -37,36 +35,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="xunit">
-      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
-      <Visible>False</Visible>
-    </CodeAnalysisDependentAssemblyPaths>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Events\AEventTest.cs" />
-    <Compile Include="Events\Mock\OtherSimpleEventMock.cs" />
-    <Compile Include="Events\Mock\SimpleEventMock.cs" />
+    <Compile Include="Events\AEvent.KnowType.ExamplePartial.cs" />
+    <Compile Include="Events\Tts\AddedNewIvrEvent.cs" />
+    <Compile Include="Events\Tts\DesiredWavesEvent.cs" />
+    <Compile Include="Events\AEvent.cs" />
+    <Compile Include="Events\Example\TestTeoVincentEvent.cs" />
+    <Compile Include="Events\AEvent.KnowType.IVRPartial.cs" />
+    <Compile Include="IEventAggregator.cs" />
+    <Compile Include="IListener.cs" />
+    <Compile Include="Events\Example\MyAnotherExampleEvent.cs" />
+    <Compile Include="Events\Example\MyOneOtherExampleEvent.cs" />
+    <Compile Include="Events\Example\MyExampleEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\IEventAggregatorService.cs" />
+    <Compile Include="Service\IEventPublisher.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EventAggregator.Common.csproj">
-      <Project>{CF2E9462-4B3C-45DA-8A79-75583A03F5F3}</Project>
-      <Name>TeoVincent.EventAggregator.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,7 +1,7 @@
 using System;
-using TeoVincent.EventAggregator.Common.Service;
+using TeoVincent.EA.Common.Service;
 
-namespace TeoVincent.EventAggregator.Service.UnitTests.Mocks
+namespace TeoVincent.EA.Service.UnitTests.Mocks
 {
     public class FailedPublisherCreator_Mock : IPublisherCreator
     {

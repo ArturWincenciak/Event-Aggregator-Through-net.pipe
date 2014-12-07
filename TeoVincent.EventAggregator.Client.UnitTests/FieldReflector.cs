@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using TeoVincent.EventAggregator.Common;
+using TeoVincent.EA.Common;
 
-namespace TeoVincent.EventAggregator.Client.UnitTests
+namespace TeoVincent.EA.Client.UnitTests
 {
     public class FieldReflector
     {
@@ -14,9 +14,9 @@ namespace TeoVincent.EventAggregator.Client.UnitTests
             return field.GetValue(instance);
         }
 
-        internal static Dictionary<Type, List<IListener>> GetListeners(EventAggregator ea)
+        internal static Dictionary<Type, List<IListener>> GetListeners(InternalEventAggregatorEngine ea)
         {
-            return GetInstanceField(typeof(EventAggregator), ea, "listeners") as Dictionary<Type, List<IListener>>;
+            return GetInstanceField(typeof(InternalEventAggregatorEngine), ea, "listeners") as Dictionary<Type, List<IListener>>;
         }
     }
 }

@@ -1,7 +1,7 @@
-using TeoVincent.EventAggregator.Common.Events;
-using TeoVincent.EventAggregator.Service.UnitTests.Mocks;
+using TeoVincent.EA.Common.Events;
+using TeoVincent.EA.Service.UnitTests.Mocks;
 
-namespace TeoVincent.EventAggregator.Service.UnitTests.EventQueueTests
+namespace TeoVincent.EA.Service.UnitTests.EventQueueTests
 {
     public abstract class BaseEventQueueTester
     {

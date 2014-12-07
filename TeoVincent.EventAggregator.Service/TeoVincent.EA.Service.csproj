@@ -8,8 +8,8 @@
     <ProjectGuid>{CB398281-BD8E-490E-88FB-60AB01BF7709}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TeoVincent.EventAggregator.Service</RootNamespace>
-    <AssemblyName>TeoVincent.EventAggregator.Service</AssemblyName>
+    <RootNamespace>TeoVincent.EA.Service</RootNamespace>
+    <AssemblyName>TeoVincent.EA.Service</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
@@ -71,7 +71,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="cd1.cd" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -82,9 +81,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EventAggregator.Common.csproj">
+    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EA.Common.csproj">
       <Project>{CF2E9462-4B3C-45DA-8A79-75583A03F5F3}</Project>
-      <Name>TeoVincent.EventAggregator.Common</Name>
+      <Name>TeoVincent.EA.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

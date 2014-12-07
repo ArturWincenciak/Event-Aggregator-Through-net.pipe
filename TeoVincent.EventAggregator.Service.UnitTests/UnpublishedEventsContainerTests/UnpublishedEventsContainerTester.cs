@@ -1,10 +1,10 @@
 using Rhino.Mocks;
-using TeoVincent.EventAggregator.Common.Events;
-using TeoVincent.EventAggregator.Common.Service;
-using TeoVincent.EventAggregator.Service.UnitTests.Mocks;
+using TeoVincent.EA.Common.Events;
+using TeoVincent.EA.Common.Service;
+using TeoVincent.EA.Service.UnitTests.Mocks;
 using Xunit;
 
-namespace TeoVincent.EventAggregator.Service.UnitTests.UnpublishedEventsContainerTests
+namespace TeoVincent.EA.Service.UnitTests.UnpublishedEventsContainerTests
 {
     public class UnpublishedEventsContainerTester
     {
@@ -17,7 +17,7 @@ namespace TeoVincent.EventAggregator.Service.UnitTests.UnpublishedEventsContaine
         {
             // 1) arrange
             var eventQueue = new EventQueue();
-            eventConteiner = new Service.UnpublishedEventsContainer(eventQueue);
+            eventConteiner = new UnpublishedEventsContainer(eventQueue);
             pluginName = "TeoVincent";
             e = new Event_Mock();
             publisher = MockRepository.GenerateStub<IEventPublisher>();

@@ -1,7 +1,7 @@
 ﻿using System;
-using TeoVincent.EventAggregator.Common;
+using TeoVincent.EA.Common;
 
-namespace TeoVincent.EventAggregator.Client
+namespace TeoVincent.EA.Client
 {
     internal class TheSameListenerAlreadySubscribedException : Exception
     {

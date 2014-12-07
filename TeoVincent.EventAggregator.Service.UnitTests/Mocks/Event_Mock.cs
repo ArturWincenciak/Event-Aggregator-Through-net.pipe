@@ -1,6 +1,6 @@
-﻿using TeoVincent.EventAggregator.Common.Events;
+﻿using TeoVincent.EA.Common.Events;
 
-namespace TeoVincent.EventAggregator.Service.UnitTests.Mocks
+namespace TeoVincent.EA.Service.UnitTests.Mocks
 {
     public class Event_Mock : AEvent
     {

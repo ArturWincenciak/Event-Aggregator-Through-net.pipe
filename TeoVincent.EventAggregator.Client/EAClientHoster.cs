@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.Timers;
-using TeoVincent.EventAggregator.Common.Events;
-using TeoVincent.EventAggregator.Common.Service;
-using Timer = System.Timers.Timer;
+using TeoVincent.EA.Common.Events;
+using TeoVincent.EA.Common.Service;
 
-namespace TeoVincent.EventAggregator.Client
+namespace TeoVincent.EA.Client
 {
 	internal sealed class EAClientHoster
     {

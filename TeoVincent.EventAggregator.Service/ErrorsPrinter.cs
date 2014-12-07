@@ -1,8 +1,8 @@
 using System;
 using NLog;
-using TeoVincent.EventAggregator.Common.Events;
+using TeoVincent.EA.Common.Events;
 
-namespace TeoVincent.EventAggregator.Service
+namespace TeoVincent.EA.Service
 {
     public class ErrorsPrinter : IErrorsHandler
     {

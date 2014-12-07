@@ -50,9 +50,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TeoVincent.EventAggregator.Service\TeoVincent.EventAggregator.Service.csproj">
+    <ProjectReference Include="..\TeoVincent.EventAggregator.Service\TeoVincent.EA.Service.csproj">
       <Project>{CB398281-BD8E-490E-88FB-60AB01BF7709}</Project>
-      <Name>TeoVincent.EventAggregator.Service</Name>
+      <Name>TeoVincent.EA.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

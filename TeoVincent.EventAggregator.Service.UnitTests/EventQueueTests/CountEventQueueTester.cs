@@ -1,10 +1,7 @@
-using System;
-using TeoVincent.EventAggregator.Common.Events;
-using TeoVincent.EventAggregator.Common.Events.Tts;
-using TeoVincent.EventAggregator.Service.UnitTests.Mocks;
+using TeoVincent.EA.Service.UnitTests.Mocks;
 using Xunit;
 
-namespace TeoVincent.EventAggregator.Service.UnitTests.EventQueueTests
+namespace TeoVincent.EA.Service.UnitTests.EventQueueTests
 {
     public class CountEventQueueTester : BaseEventQueueTester
     {

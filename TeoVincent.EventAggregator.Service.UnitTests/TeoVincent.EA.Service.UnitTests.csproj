@@ -7,8 +7,8 @@
     <ProjectGuid>{A2BBAFA7-86BE-44C2-B7E7-7D550AF4E1A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TeoVincent.EventAggregator.Service.UnitTests</RootNamespace>
-    <AssemblyName>TeoVincent.EventAggregator.Service.UnitTests</AssemblyName>
+    <RootNamespace>TeoVincent.EA.Service.UnitTests</RootNamespace>
+    <AssemblyName>TeoVincent.EA.Service.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -69,13 +69,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EventAggregator.Common.csproj">
+    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EA.Common.csproj">
       <Project>{CF2E9462-4B3C-45DA-8A79-75583A03F5F3}</Project>
-      <Name>TeoVincent.EventAggregator.Common</Name>
+      <Name>TeoVincent.EA.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TeoVincent.EventAggregator.Service\TeoVincent.EventAggregator.Service.csproj">
+    <ProjectReference Include="..\TeoVincent.EventAggregator.Service\TeoVincent.EA.Service.csproj">
       <Project>{CB398281-BD8E-490E-88FB-60AB01BF7709}</Project>
-      <Name>TeoVincent.EventAggregator.Service</Name>
+      <Name>TeoVincent.EA.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

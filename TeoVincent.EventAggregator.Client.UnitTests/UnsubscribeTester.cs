@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Threading;
 using Rhino.Mocks;
-using Rhino.Mocks.Constraints;
-using TeoVincent.EventAggregator.Client.UnitTests.EventMocks;
-using TeoVincent.EventAggregator.Client.UnitTests.ListenerMocks;
-using TeoVincent.EventAggregator.Common;
+using TeoVincent.EA.Client.UnitTests.EventMocks;
+using TeoVincent.EA.Client.UnitTests.ListenerMocks;
+using TeoVincent.EA.Common;
 using Xunit;
 
-namespace TeoVincent.EventAggregator.Client.UnitTests
+namespace TeoVincent.EA.Client.UnitTests
 {
     public class UnsubscribeTester
     {
-        private readonly EventAggregator eventAggregator;
+        private readonly InternalEventAggregatorEngine eventAggregator;
 
         public UnsubscribeTester()
         {
             var syncContexts = new SynchronizationContext();
-            eventAggregator = new EventAggregator(syncContexts);
+            eventAggregator = new InternalEventAggregatorEngine(syncContexts);
         }
 
         [Fact]

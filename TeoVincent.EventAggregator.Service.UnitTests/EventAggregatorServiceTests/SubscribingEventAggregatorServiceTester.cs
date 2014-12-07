@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using Rhino.Mocks;
-using TeoVincent.EventAggregator.Common.Service;
-using TeoVincent.EventAggregator.Service.UnitTests.Mocks;
+using TeoVincent.EA.Common.Service;
+using TeoVincent.EA.Service.UnitTests.Mocks;
 using Xunit;
 
-namespace TeoVincent.EventAggregator.Service.UnitTests.EventAggregatorServiceTests
+namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
 {
     public class SubscribingEventAggregatorServiceTester
     {

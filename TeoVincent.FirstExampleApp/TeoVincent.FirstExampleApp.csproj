@@ -53,13 +53,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TeoVincent.EventAggregator.Client\TeoVincent.EventAggregator.Client.csproj">
+    <ProjectReference Include="..\TeoVincent.EventAggregator.Client\TeoVincent.EA.Client.csproj">
       <Project>{6A6E9994-B2A3-42F8-87A8-2BAFC7846076}</Project>
-      <Name>TeoVincent.EventAggregator.Client</Name>
+      <Name>TeoVincent.EA.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EventAggregator.Common.csproj">
+    <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EA.Common.csproj">
       <Project>{CF2E9462-4B3C-45DA-8A79-75583A03F5F3}</Project>
-      <Name>TeoVincent.EventAggregator.Common</Name>
+      <Name>TeoVincent.EA.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
