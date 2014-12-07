@@ -102,7 +102,7 @@ namespace TeoVincent.EventAggregator.Client
                     listeners.Add(typeOfEvent, new List<IListener>());
 
                 if (listeners[typeOfEvent].Contains(listener))
-                    throw new SubscribeTheSameMoreThenOneException(listener);
+                    throw new TheSameListenerAlreadySubscribedException(listener);
       
                 listeners[typeOfEvent].Add(listener);
             }
