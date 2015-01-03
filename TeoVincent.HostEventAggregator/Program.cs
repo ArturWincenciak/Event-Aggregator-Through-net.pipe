@@ -7,13 +7,13 @@ namespace TeoVincent.HostEventAggregator
     {
         static void Main(string[] args)
         {
-            var hoster = new ServiceHoster();
-            hoster.Host();
+            using (IHostable hoster = new EventAggregatorServiceHoster())
+            {
+                hoster.Host();
 
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
-            
-            hoster.DontHost();
+                Console.WriteLine("Press any key to exit...");
+                Console.ReadKey();
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace TeoVincent.EA.Service
     /// <summary>
     /// Starting point.
     /// </summary>
-    public class ServiceHoster
+    public class EventAggregatorServiceHoster : IHostable
     {
         private ServiceHost host;
         
@@ -26,11 +26,16 @@ namespace TeoVincent.EA.Service
             }
         }
 
-        public void DontHost()
+        public void Dispose()
+        {
+            StopHosting();
+        }
+
+        private void StopHosting()
         {
             try
             {
-                if(host != null)
+                if (host != null)
                     host.Close();
             }
             catch (Exception ex)
@@ -39,7 +44,7 @@ namespace TeoVincent.EA.Service
             }
             finally
             {
-                if (host != null) 
+                if (host != null && host.State != CommunicationState.Closed)
                     host.Abort();
             }
         }
