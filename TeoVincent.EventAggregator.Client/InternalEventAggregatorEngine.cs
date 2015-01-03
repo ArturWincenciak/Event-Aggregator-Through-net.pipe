@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using TeoVincent.EA.Client.Exceptions;
 using TeoVincent.EA.Common;
 using TeoVincent.EA.Common.Events;
 

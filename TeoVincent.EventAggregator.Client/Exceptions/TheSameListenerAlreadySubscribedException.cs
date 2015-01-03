@@ -1,7 +1,7 @@
 ﻿using System;
 using TeoVincent.EA.Common;
 
-namespace TeoVincent.EA.Client
+namespace TeoVincent.EA.Client.Exceptions
 {
     internal class TheSameListenerAlreadySubscribedException : Exception
     {

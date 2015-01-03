@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Rhino.Mocks;
+using TeoVincent.EA.Client.Exceptions;
 using TeoVincent.EA.Client.UnitTests.EventMocks;
 using TeoVincent.EA.Client.UnitTests.ListenerMocks;
 using TeoVincent.EA.Common;

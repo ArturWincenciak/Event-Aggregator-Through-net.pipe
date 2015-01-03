@@ -40,7 +40,7 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TheSameListenerAlreadySubscribedException.cs" />
+    <Compile Include="Exceptions\TheSameListenerAlreadySubscribedException.cs" />
     <Compile Include="InternalEventAggregatorEngine.cs" />
     <Compile Include="EventAggregator.cs" />
     <Compile Include="EAClientHoster.cs" />
