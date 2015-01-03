@@ -35,7 +35,7 @@ namespace TeoVincent.EA.Client
 
 	    public EventAggregator()
 	    {
-	        eventAggregator = new InternalEventAggregatorEngine(new SynchronizationContext());
+	        eventAggregator = new InternalEventAggregator(new SynchronizationContext());
             var publishSwitcher = new PublishSwitcher(eventAggregator);
             IEventPublisher evnt = new EventPublisher(publishSwitcher);
             eaClientHoster = new EAClientHoster(evnt);

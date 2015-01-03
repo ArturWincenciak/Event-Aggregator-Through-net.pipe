@@ -7,14 +7,14 @@ using Xunit;
 
 namespace TeoVincent.EA.Client.UnitTests
 {
-    public class EventAggeregatorTester
+    public class InternalEventAggeregatorTester
     {
         private readonly IEventAggregator eventAggregator;
 
-        public EventAggeregatorTester()
+        public InternalEventAggeregatorTester()
         {
             var syncContexts = new SynchronizationContext();
-            eventAggregator = new InternalEventAggregatorEngine(syncContexts);
+            eventAggregator = new InternalEventAggregator(syncContexts);
         }
         
         [Fact]

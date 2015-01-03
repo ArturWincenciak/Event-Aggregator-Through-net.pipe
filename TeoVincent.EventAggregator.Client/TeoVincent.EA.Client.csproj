@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\TheSameListenerAlreadySubscribedException.cs" />
-    <Compile Include="InternalEventAggregatorEngine.cs" />
+    <Compile Include="InternalEventAggregator.cs" />
     <Compile Include="EventAggregator.cs" />
     <Compile Include="EAClientHoster.cs" />
     <Compile Include="EAServiceProxy.cs" />

@@ -14,9 +14,9 @@ namespace TeoVincent.EA.Client.UnitTests
             return field.GetValue(instance);
         }
 
-        internal static Dictionary<Type, List<IListener>> GetListeners(InternalEventAggregatorEngine ea)
+        internal static Dictionary<Type, List<IListener>> GetListeners(InternalEventAggregator ea)
         {
-            return GetInstanceField(typeof(InternalEventAggregatorEngine), ea, "listeners") as Dictionary<Type, List<IListener>>;
+            return GetInstanceField(typeof(InternalEventAggregator), ea, "listeners") as Dictionary<Type, List<IListener>>;
         }
     }
 }

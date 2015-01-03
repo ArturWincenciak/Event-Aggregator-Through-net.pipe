@@ -13,7 +13,7 @@ namespace TeoVincent.EA.Client.UnitTests
         public HandleMethodTester()
         {
             var syncContexts = new SynchronizationContext();
-            eventAggregator = new InternalEventAggregatorEngine(syncContexts);
+            eventAggregator = new InternalEventAggregator(syncContexts);
         }
 
         [Fact]

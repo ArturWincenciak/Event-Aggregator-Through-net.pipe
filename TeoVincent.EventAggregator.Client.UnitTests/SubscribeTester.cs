@@ -12,12 +12,12 @@ namespace TeoVincent.EA.Client.UnitTests
 {
     public class SubscribeTester
     {
-        private readonly InternalEventAggregatorEngine eventAggregator;
+        private readonly InternalEventAggregator eventAggregator;
 
         public SubscribeTester()
         {
             var syncContexts = new SynchronizationContext();
-            eventAggregator = new InternalEventAggregatorEngine(syncContexts);
+            eventAggregator = new InternalEventAggregator(syncContexts);
         }
 
         [Fact]

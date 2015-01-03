@@ -8,13 +8,13 @@ using TeoVincent.EA.Common.Events;
 
 namespace TeoVincent.EA.Client
 {
-    internal sealed class InternalEventAggregatorEngine : IEventAggregator
+    internal sealed class InternalEventAggregator : IEventAggregator
     {
         private readonly object syncLock = new object();
         private readonly SynchronizationContext context;
         private readonly Dictionary<Type, List<IListener>> listeners = new Dictionary<Type, List<IListener>>();
         
-        public InternalEventAggregatorEngine(SynchronizationContext context)
+        public InternalEventAggregator(SynchronizationContext context)
         {
             this.context = context;
         }
