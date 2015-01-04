@@ -8,7 +8,7 @@ namespace TeoVincent.EA.Client.UnitTests
 {
     public class HandleMethodTester
     {
-        private readonly IInternalEventAggregator internalEventAggregator;
+        private readonly IEventAggregator internalEventAggregator;
 
         public HandleMethodTester()
         {

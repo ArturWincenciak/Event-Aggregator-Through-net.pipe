@@ -1,4 +1,5 @@
 ﻿using System;
+using TeoVincent.EA.Client;
 using TeoVincent.EA.Common.Events.Example;
 
 namespace TeoVincent.SecondExampleApp
@@ -9,8 +10,10 @@ namespace TeoVincent.SecondExampleApp
         {
             Console.WriteLine("SecondExampleApp starting ...");
 
+            EventAggregator aggregator = new EventAggregator();
+
             var myAnotherExampleEvent = new MyAnotherExampleEvent();
-            EA.Client.EventAggregator.Instance.GlobalPublish(myAnotherExampleEvent);
+            aggregator.GlobalPublish(myAnotherExampleEvent);
 
             var myExampleEvent = new MyExampleEvent();
             while (true)
@@ -18,13 +21,13 @@ namespace TeoVincent.SecondExampleApp
                 Console.WriteLine("Press 's' to broadcast event...\n");
                 ConsoleKeyInfo key = Console.ReadKey();
                 if (key.KeyChar.Equals('s'))
-                    EA.Client.EventAggregator.Instance.GlobalPublish(myExampleEvent);
+                    aggregator.GlobalPublish(myExampleEvent);
                 else
                     break;
             }
 
             var myOneOtherExampleEvent = new MyOneOtherExampleEvent();
-            EA.Client.EventAggregator.Instance.GlobalPublish(myOneOtherExampleEvent);
+            aggregator.GlobalPublish(myOneOtherExampleEvent);
 
             Console.WriteLine("Press any kay to close.");
             Console.ReadKey();

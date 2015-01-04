@@ -46,7 +46,7 @@
     <Compile Include="Events\AEvent.cs" />
     <Compile Include="Events\Example\TestTeoVincentEvent.cs" />
     <Compile Include="Events\AEvent.KnowType.IVRPartial.cs" />
-    <Compile Include="IInternalEventAggregator.cs" />
+    <Compile Include="IEventAggregator.cs" />
     <Compile Include="IListener.cs" />
     <Compile Include="Events\Example\MyAnotherExampleEvent.cs" />
     <Compile Include="Events\Example\MyOneOtherExampleEvent.cs" />

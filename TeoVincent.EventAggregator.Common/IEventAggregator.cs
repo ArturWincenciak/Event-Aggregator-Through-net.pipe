@@ -2,14 +2,14 @@
 
 namespace TeoVincent.EA.Common
 {
-    public interface IInternalEventAggregator
+    public interface IEventAggregator
     {
         /// <summary>
         /// Publish an event.
         /// </summary>
         /// <typeparam name="TEvent">Type of event.</typeparam>
         /// <param name="e">Instance of event.</param>
-        void Publish<TEvent>(TEvent e) where TEvent : AEvent;
+        void Publish<TEvent>(TEvent e) where TEvent : AEvent, new();
 
         /// <summary>
         /// Publish event without sending instance of event object.

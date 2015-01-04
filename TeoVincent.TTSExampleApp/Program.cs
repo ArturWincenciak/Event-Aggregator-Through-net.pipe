@@ -1,4 +1,5 @@
 ﻿using System;
+using TeoVincent.EA.Client;
 using TeoVincent.EA.Common.Events.Example;
 
 namespace TeoVincent.TTSExampleApp
@@ -9,11 +10,13 @@ namespace TeoVincent.TTSExampleApp
         {
             Console.WriteLine("TTSExampleApp starting ...");
             
-            EA.Client.EventAggregator.Instance.SubscribePlugin("TTSExampleApp");
-            EA.Client.EventAggregator.Instance.Subscribe(new TTSListener());
+            EventAggregator aggregator = new EventAggregator();
+
+            aggregator.SubscribePlugin("TTSExampleApp");
+            aggregator.Subscribe(new TTSListener());
 
             var e = new MyNewOwnEvent {Data = "some data"};
-            EA.Client.EventAggregator.Instance.GlobalPublish(e);
+            aggregator.GlobalPublish(e);
             
             Console.WriteLine("Press any kay to close.");
             Console.ReadKey();

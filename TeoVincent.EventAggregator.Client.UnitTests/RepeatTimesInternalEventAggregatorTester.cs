@@ -9,7 +9,7 @@ namespace TeoVincent.EA.Client.UnitTests
 {
     public class RepeatTimesInternalEventAggregatorTester
     {
-        private readonly IInternalEventAggregator internalEventAggregator;
+        private readonly IEventAggregator internalEventAggregator;
 
         public RepeatTimesInternalEventAggregatorTester()
         {

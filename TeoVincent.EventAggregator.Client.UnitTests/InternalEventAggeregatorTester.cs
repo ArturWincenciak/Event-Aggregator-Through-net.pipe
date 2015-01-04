@@ -3,13 +3,14 @@ using Rhino.Mocks;
 using TeoVincent.EA.Client.UnitTests.EventMocks;
 using TeoVincent.EA.Client.UnitTests.ListenerMocks;
 using TeoVincent.EA.Common;
+using TeoVincent.EA.Common.Events.Tts;
 using Xunit;
 
 namespace TeoVincent.EA.Client.UnitTests
 {
     public class InternalEventAggeregatorTester
     {
-        private readonly IInternalEventAggregator internalEventAggregator;
+        private readonly IEventAggregator internalEventAggregator;
 
         public InternalEventAggeregatorTester()
         {

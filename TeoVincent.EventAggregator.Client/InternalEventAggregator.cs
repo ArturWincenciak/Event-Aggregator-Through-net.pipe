@@ -8,7 +8,7 @@ using TeoVincent.EA.Common.Events;
 
 namespace TeoVincent.EA.Client
 {
-    internal sealed class InternalEventAggregator : IInternalEventAggregator
+    internal sealed class InternalEventAggregator : IEventAggregator
     {
         private readonly object syncLock = new object();
         private readonly SynchronizationContext context;
@@ -59,7 +59,7 @@ namespace TeoVincent.EA.Client
         /// implements interface parameterized this event type). This method
         /// parametrize automatically based on type of argument this method.
         /// </summary>
-        public void Publish<TEvent>(TEvent e) where TEvent : AEvent
+        public void Publish<TEvent>(TEvent e) where TEvent : AEvent, new()
         {
             lock (syncLock)
             {

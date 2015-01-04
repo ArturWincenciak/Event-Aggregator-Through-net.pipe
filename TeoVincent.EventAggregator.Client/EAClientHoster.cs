@@ -7,7 +7,7 @@ using TeoVincent.EA.Common.Service;
 
 namespace TeoVincent.EA.Client
 {
-	internal sealed class EAClientHoster
+    internal sealed class EAClientHoster
     {
         private static volatile EAServiceProxy eaServiceProxy;
         private static volatile string pluginName;

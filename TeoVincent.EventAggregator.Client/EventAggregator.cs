@@ -10,28 +10,10 @@ namespace TeoVincent.EA.Client
 	/// <summary>
 	/// Main class which saves listeners and publishes events between the listeners.
 	/// </summary>
-	public sealed class EventAggregator
+    public sealed class EventAggregator : IEventAggregator
 	{
-        private static readonly object objSyncRoot = new Object();
-        private static volatile EventAggregator eaInstance;
-	    private readonly IInternalEventAggregator internalEventAggregator;
+	    private readonly IEventAggregator internalEventAggregator;
 	    private readonly EAClientHoster eaClientHoster;
-        
-		public static EventAggregator Instance
-		{
-			get
-			{
-				if (eaInstance == null)
-				{
-					lock (objSyncRoot)
-					{
-                        eaInstance = new EventAggregator();
-					}
-				}
-
-				return eaInstance;
-			}
-		}
 
 	    public EventAggregator()
 	    {
@@ -40,8 +22,6 @@ namespace TeoVincent.EA.Client
             IEventPublisher evnt = new EventPublisher(publishSwitcher);
             eaClientHoster = new EAClientHoster(evnt);
 	    }
-
-	    #region IEventAggregatorService
 
 		/// <summary>
 		/// Example method.
@@ -69,7 +49,7 @@ namespace TeoVincent.EA.Client
             eaClientHoster.UnsubscribePlugin(strName);
 		}
 
-		/// <summary>
+	    /// <summary>
 		/// Publish event between all plugins (appdomains) using net.pipe.
 		/// </summary>
 		/// <param name="e">Event</param>
@@ -79,21 +59,19 @@ namespace TeoVincent.EA.Client
             eaClientHoster.GlobalPublish(e);
 		}
 
-		#endregion IEventAggregatorService
+        #region IEventAggregator implementation
 
-		#region IEventAggregator
+        public void Publish<TEvent>(TEvent e) where TEvent : AEvent, new()
+        {
+            internalEventAggregator.Publish(e);
+	    }
 
-		public void LocalPublish<TEvent>(TEvent message) where TEvent : AEvent, new()
-		{
-            internalEventAggregator.Publish(message);
-		}
-
-		public void LocalPublish<TEvent>() where TEvent : AEvent, new()
-		{
+	    public void Publish<TEvent>() where TEvent : AEvent, new()
+	    {
             internalEventAggregator.Publish<TEvent>();
-		}
+	    }
 
-		public void Subscribe(IListener listener)
+	    public void Subscribe(IListener listener)
 		{
             internalEventAggregator.Subscribe(listener);
 		}
@@ -111,8 +89,8 @@ namespace TeoVincent.EA.Client
 		public void Unsubscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
 		{
             internalEventAggregator.Unsubscribe(listener);
-		}
+        }
 
-		#endregion IEventAggregator
-	}
+        #endregion
+    }
 }

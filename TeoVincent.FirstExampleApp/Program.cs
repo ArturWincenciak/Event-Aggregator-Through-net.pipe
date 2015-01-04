@@ -11,11 +11,12 @@ namespace TeoVincent.FirstExampleApp
         {
             Console.WriteLine("FirstExampleApp starting ...");
 
-            EventAggregator.Instance.SubscribePlugin("FirstExampleApp");
+            EventAggregator aggregator = new EventAggregator();
+            aggregator.SubscribePlugin("FirstExampleApp");
             var v = new MyAnotherExampleEventListener();
-            EventAggregator.Instance.Subscribe(v);
-            EventAggregator.Instance.Subscribe(new MyExampleEventListener());
-            EventAggregator.Instance.Subscribe(new AllExampleEventListener());
+            aggregator.Subscribe(v);
+            aggregator.Subscribe(new MyExampleEventListener());
+            aggregator.Subscribe(new AllExampleEventListener());
 
             while(true)
             {
@@ -25,7 +26,7 @@ namespace TeoVincent.FirstExampleApp
                 {
             
                     var e = new AddedNewIvrEvent {Identificator = "Some unique ID for example."};
-                    EventAggregator.Instance.GlobalPublish(e);
+                    aggregator.GlobalPublish(e);
                 }
                 else if(key.KeyChar.Equals('w'))
                 {
@@ -33,7 +34,7 @@ namespace TeoVincent.FirstExampleApp
                     e.Content.Add("Some text for convert to wave.");
                     e.Content.Add("Some today information.");
                     e.Content.Add("Another sentence.");
-                    EventAggregator.Instance.GlobalPublish(e);
+                    aggregator.GlobalPublish(e);
                 }
                 else
                     break;

@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventAggregatorTester.cs" />
     <Compile Include="EventMocks\Another_MockEvent.cs" />
     <Compile Include="FieldReflector.cs" />
     <Compile Include="RepeatTimesInternalEventAggregatorTester.cs" />
