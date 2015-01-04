@@ -3,7 +3,7 @@ using TeoVincent.EA.Common.Events;
 
 namespace TeoVincent.EA.Service
 {
-    public interface IErrorsHandler
+    public interface IErrorHandler
     {
         void OnSubscriptionFailed(string pluginName, Exception ex);
 

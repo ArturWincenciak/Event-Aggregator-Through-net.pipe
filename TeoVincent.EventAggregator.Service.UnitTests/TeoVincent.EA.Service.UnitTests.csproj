@@ -63,7 +63,7 @@
     <Compile Include="Mocks\EventPublisher_Mock.cs" />
     <Compile Include="EventQueueTests\PeekEventQueueTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Mocks\ErrorsHandlerCheckable_Mock.cs" />
+    <Compile Include="Mocks\ErrorHandlerCheckableMock.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -9,7 +9,7 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
 {
     public class FiledPublishEventAggregatorServiceTester
     {
-        private readonly IErrorsHandler errorHandler;
+        private readonly IErrorHandler errorHandler;
         private readonly Exception ex;
         private readonly IEventPublisher eventPublisher;
         private readonly string plugin;
@@ -19,7 +19,7 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
         public FiledPublishEventAggregatorServiceTester()
         {
             // 1) arrange
-            errorHandler = MockRepository.GenerateMock<IErrorsHandler>();
+            errorHandler = MockRepository.GenerateMock<IErrorHandler>();
             ex = new Exception();
             eventPublisher = new FailedEventPublisher_Mock(ex);
             publisherCreator = new PublisherCreator_Mock(eventPublisher);
@@ -36,7 +36,7 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
             
             // 2) act
             eventAggregator.SubscribePlugin(plugin);
-            eventAggregator.Publish(e);
+            eventAggregator.GlobalPublish(e);
 
             // 3) assert
             errorHandler.AssertWasCalled(x => x.OnPublishFailed(plugin, e, ex));
@@ -52,7 +52,7 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
 
             // 2) act
             eventAggregator.SubscribePlugin(plugin);
-            eventAggregator.Publish(e);
+            eventAggregator.GlobalPublish(e);
             eventAggregator.SubscribePlugin(plugin);
 
             // 3) assert
@@ -71,7 +71,7 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
 
             // 2) act
             eventAggregator.SubscribePlugin(plugin);
-            eventAggregator.Publish(e);
+            eventAggregator.GlobalPublish(e);
             int actual = eventQueue.GetCount(plugin);
             int expected = 1;
 
@@ -90,8 +90,8 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
 
             // 2) act
             eventAggregator.SubscribePlugin(plugin);
-            eventAggregator.Publish(e);
-            eventAggregator.Publish(anotherEvent);
+            eventAggregator.GlobalPublish(e);
+            eventAggregator.GlobalPublish(anotherEvent);
             int actual = eventQueue.GetCount(plugin);
             int expected = 2;
 

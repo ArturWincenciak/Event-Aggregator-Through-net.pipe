@@ -4,7 +4,7 @@ using TeoVincent.EA.Common.Events;
 
 namespace TeoVincent.EA.Service
 {
-    public class ErrorsPrinter : IErrorsHandler
+    public class ErrorPrinter : IErrorHandler
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         

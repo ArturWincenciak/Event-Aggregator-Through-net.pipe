@@ -42,9 +42,9 @@ namespace TeoVincent.EA.Client
         /// <summary>
         /// Broadcast event in each subscribed appdomains.
         /// </summary>
-        public void Publish(AEvent e)
+        public void GlobalPublish(AEvent e)
         {
-            Channel.Publish(e);
+            Channel.GlobalPublish(e);
         }
     }
 }

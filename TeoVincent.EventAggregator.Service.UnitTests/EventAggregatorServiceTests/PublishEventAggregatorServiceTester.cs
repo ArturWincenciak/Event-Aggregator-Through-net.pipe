@@ -14,7 +14,7 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
         public PublishEventAggregatorServiceTester()
         {
             // 1) arrange
-            var errorHandler = MockRepository.GenerateMock<IErrorsHandler>();
+            var errorHandler = MockRepository.GenerateMock<IErrorHandler>();
             eventPublisher = MockRepository.GenerateMock<IEventPublisher>();
             IPublisherCreator publisherCreator = new PublisherCreator_Mock(eventPublisher);
             var eventConteiner = MockRepository.GenerateMock<IEventContainer>();
@@ -30,7 +30,7 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
             
             // 2) act
             eventAggregator.SubscribePlugin(plugin);
-            eventAggregator.Publish(e);
+            eventAggregator.GlobalPublish(e);
 
             // 3) assert
             eventPublisher.AssertWasCalled(x => x.Publish(e));
@@ -46,7 +46,7 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
             // 2) act
             eventAggregator.SubscribePlugin(plugin);
             eventAggregator.SubscribePlugin(anorherPlugin);
-            eventAggregator.Publish(e);
+            eventAggregator.GlobalPublish(e);
             int repeatTimes = 2;
 
             // 3) assert
@@ -62,7 +62,7 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
             var e = new Event_Mock();
 
             // 2) act
-            eventAggregator.Publish(e);
+            eventAggregator.GlobalPublish(e);
 
             // 3) assert
             eventPublisher.AssertWasNotCalled(x => x.Publish(e));

@@ -119,7 +119,7 @@ namespace TeoVincent.EA.Client
 					}
 
 					PublishEnqueuedEvent();
-					eaServiceProxy.Publish(e);
+					eaServiceProxy.GlobalPublish(e);
 				}
 				catch (Exception ex)
 				{
@@ -190,7 +190,7 @@ namespace TeoVincent.EA.Client
 						{
 							if  (ServiceIsOpened())
 							{
-								eaServiceProxy.Publish(e);
+								eaServiceProxy.GlobalPublish(e);
 								enqueuedEvent.Dequeue();
 							}
 						}

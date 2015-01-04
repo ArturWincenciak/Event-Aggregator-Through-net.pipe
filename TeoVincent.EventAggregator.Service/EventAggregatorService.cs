@@ -15,7 +15,7 @@ namespace TeoVincent.EA.Service
     {
         private readonly object syncLock;
         private readonly Dictionary<string, IEventPublisher> pluginSubscribers;
-        private readonly IErrorsHandler errorsHandler;
+        private readonly IErrorHandler errorHandler;
         private readonly IPublisherCreator publisherCreator;
         private readonly IEventContainer unpublishedEvents;
 
@@ -26,7 +26,7 @@ namespace TeoVincent.EA.Service
         {
             syncLock = new object();
             pluginSubscribers = new Dictionary<string, IEventPublisher>();
-            errorsHandler = new ErrorsPrinter();
+            errorHandler = new ErrorPrinter();
             publisherCreator = new CurrentContextCallbackCreator();
             IEventQueue ququedEventsQueue = new EventQueue();
             unpublishedEvents = new UnpublishedEventsContainer(ququedEventsQueue);
@@ -35,12 +35,12 @@ namespace TeoVincent.EA.Service
         /// <summary>
         /// Ctor. for unit testing.
         /// </summary>
-        public EventAggregatorService(IErrorsHandler errorsHandler, IPublisherCreator publisherCreator, IEventContainer unpublishedEvents)
+        public EventAggregatorService(IErrorHandler errorHandler, IPublisherCreator publisherCreator, IEventContainer unpublishedEvents)
         {
             syncLock = new object();
             pluginSubscribers = new Dictionary<string, IEventPublisher>();
             
-            this.errorsHandler = errorsHandler;
+            this.errorHandler = errorHandler;
             this.publisherCreator = publisherCreator;
             this.unpublishedEvents = unpublishedEvents;
         }
@@ -77,7 +77,7 @@ namespace TeoVincent.EA.Service
                 }
                 catch (Exception ex)
                 {
-                    errorsHandler.OnSubscriptionFailed(name, ex);
+                    errorHandler.OnSubscriptionFailed(name, ex);
                 }
             }
         }
@@ -99,7 +99,7 @@ namespace TeoVincent.EA.Service
                 }
                 catch (Exception ex)
                 {
-                    errorsHandler.OnUnsubscriptionFailed(name, ex);
+                    errorHandler.OnUnsubscriptionFailed(name, ex);
                 }
             }
         }
@@ -107,7 +107,7 @@ namespace TeoVincent.EA.Service
         /// <summary>
         /// Broadcast event to each subscribers using callback objects.
         /// </summary>
-        public void Publish(AEvent e)
+        public void GlobalPublish(AEvent e)
         {
             lock (syncLock)
             {
@@ -119,7 +119,7 @@ namespace TeoVincent.EA.Service
                     }
                     catch (Exception ex)
                     {
-                        errorsHandler.OnPublishFailed(v.Key, e, ex);
+                        errorHandler.OnPublishFailed(v.Key, e, ex);
                         unpublishedEvents.Store(v.Key, e);
                     }
                 }

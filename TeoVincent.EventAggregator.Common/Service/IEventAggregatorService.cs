@@ -33,6 +33,6 @@ namespace TeoVincent.EA.Common.Service
         /// Broadcasts events to all appdomains stored in the collection of appdomains.
         /// </summary>
         [OperationContract]
-        void Publish(AEvent e);
+        void GlobalPublish(AEvent e);
     }
 }

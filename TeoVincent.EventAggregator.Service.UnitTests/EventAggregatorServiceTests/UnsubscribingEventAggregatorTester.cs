@@ -9,13 +9,13 @@ namespace TeoVincent.EA.Service.UnitTests.EventAggregatorServiceTests
 {
     public class UnsubscribingEventAggregatorTester
     {
-        private readonly IErrorsHandler errorHandler;
+        private readonly IErrorHandler errorHandler;
         private readonly string plugin;
         private readonly PublisherCreator_Mock publisherCreator;
 
         public UnsubscribingEventAggregatorTester()
         {
-            errorHandler = MockRepository.GenerateMock<IErrorsHandler>();
+            errorHandler = MockRepository.GenerateMock<IErrorHandler>();
             var eventPublisher = new EventPublisher_Mock();
             publisherCreator = new PublisherCreator_Mock(eventPublisher);
             plugin = "Teo";

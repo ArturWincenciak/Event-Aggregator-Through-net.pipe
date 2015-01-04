@@ -3,7 +3,7 @@ using TeoVincent.EA.Common.Events;
 
 namespace TeoVincent.EA.Service.UnitTests.Mocks
 {
-    public class ErrorsHandlerCheckable_Mock : IErrorsHandler
+    public class ErrorHandlerCheckableMock : IErrorHandler
     {
         public bool WasCalledSubscribeBug { get; private set; } 
         public bool WasCalledUsubscribeBug { get; private set; } 
