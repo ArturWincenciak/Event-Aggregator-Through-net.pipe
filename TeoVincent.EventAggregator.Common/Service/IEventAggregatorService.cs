@@ -6,7 +6,7 @@ namespace TeoVincent.EA.Common.Service
     /// <summary>
     /// Service which subscribe, unsubscribe and distributes events between appdomains.
     /// </summary>
-    [ServiceContract(CallbackContract = typeof(IEventPublisher))]
+    [ServiceContract(CallbackContract = typeof(IEventPublisher), Namespace = "TeoVincent Event Aggregator 2.0")]
     public interface IEventAggregatorService
     {
         /// <summary>
