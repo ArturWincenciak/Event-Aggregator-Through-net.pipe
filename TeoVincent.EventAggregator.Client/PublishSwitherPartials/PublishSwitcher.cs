@@ -6,11 +6,11 @@ namespace TeoVincent.EA.Client.PublishSwitherPartials
 {
     public partial class PublishSwitcher : IPublishSwitcher
     {
-        private readonly IEventAggregator eventAggregator;
+        private readonly IInternalEventAggregator internalEventAggregator;
 
-        public PublishSwitcher(IEventAggregator eventAggregator)
+        public PublishSwitcher(IInternalEventAggregator internalEventAggregator)
         {
-            this.eventAggregator = eventAggregator;
+            this.internalEventAggregator = internalEventAggregator;
         }
 
         public bool PublishKnowType(AEvent e)

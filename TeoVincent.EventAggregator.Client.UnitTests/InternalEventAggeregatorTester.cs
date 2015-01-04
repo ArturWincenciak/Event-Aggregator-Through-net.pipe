@@ -9,12 +9,12 @@ namespace TeoVincent.EA.Client.UnitTests
 {
     public class InternalEventAggeregatorTester
     {
-        private readonly IEventAggregator eventAggregator;
+        private readonly IInternalEventAggregator internalEventAggregator;
 
         public InternalEventAggeregatorTester()
         {
             var syncContexts = new SynchronizationContext();
-            eventAggregator = new InternalEventAggregator(syncContexts);
+            internalEventAggregator = new InternalEventAggregator(syncContexts);
         }
         
         [Fact]
@@ -22,11 +22,11 @@ namespace TeoVincent.EA.Client.UnitTests
         {
             // 1) arrange
             var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
             var e = new Simple_MockEvent();
 
             // 2) act
-            eventAggregator.Publish(e);
+            internalEventAggregator.Publish(e);
 
             // 3) assert
             listener.AssertWasCalled(l => l.Handle(e));
@@ -37,12 +37,12 @@ namespace TeoVincent.EA.Client.UnitTests
         {
             // 1) arrange
             var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
             var e = new Simple_MockEvent();
             var anotherEvent = new Simple_MockEvent();
 
             // 2) act
-            eventAggregator.Publish(e);
+            internalEventAggregator.Publish(e);
 
             // 3) assert
             listener.AssertWasNotCalled(l => l.Handle(anotherEvent));
@@ -53,13 +53,13 @@ namespace TeoVincent.EA.Client.UnitTests
         {
             // 1) arrange
             var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
             var e1 = new Simple_MockEvent();
             var e2 = new Simple_MockEvent();
 
             // 2) act
-            eventAggregator.Publish(e1);
-            eventAggregator.Publish(e2);
+            internalEventAggregator.Publish(e1);
+            internalEventAggregator.Publish(e2);
 
             // 3) assert
             listener.AssertWasCalled(l => l.Handle(e1));
@@ -74,8 +74,8 @@ namespace TeoVincent.EA.Client.UnitTests
             var e = new Simple_MockEvent();
 
             // 2) act
-            eventAggregator.Subscribe(listener);
-            eventAggregator.Publish(e);
+            internalEventAggregator.Subscribe(listener);
+            internalEventAggregator.Publish(e);
 
             // 3) assert
             listener.AssertWasCalled(x => x.Handle(e));
@@ -86,10 +86,10 @@ namespace TeoVincent.EA.Client.UnitTests
         {
             // 1) arrange
             var listener = new Simple_MockListener();
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
             
             // 2) act
-            eventAggregator.Publish<Simple_MockEvent>();
+            internalEventAggregator.Publish<Simple_MockEvent>();
 
             // 3) assert
             Assert.NotNull(listener.Event);
@@ -100,10 +100,10 @@ namespace TeoVincent.EA.Client.UnitTests
         {
             // 1) arrange
             var listener = new Simple_MockListener();
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
 
             // 2) act
-            eventAggregator.Publish<Simple_MockEvent>();
+            internalEventAggregator.Publish<Simple_MockEvent>();
 
             string expected = "Simple_MockEvent";
             string actual = listener.Event.ChildType;

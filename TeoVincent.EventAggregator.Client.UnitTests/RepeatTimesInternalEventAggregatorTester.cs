@@ -9,12 +9,12 @@ namespace TeoVincent.EA.Client.UnitTests
 {
     public class RepeatTimesInternalEventAggregatorTester
     {
-        private readonly IEventAggregator eventAggregator;
+        private readonly IInternalEventAggregator internalEventAggregator;
 
         public RepeatTimesInternalEventAggregatorTester()
         {
             var syncContexts = new SynchronizationContext();
-            eventAggregator = new InternalEventAggregator(syncContexts);
+            internalEventAggregator = new InternalEventAggregator(syncContexts);
         }
 
         [Fact]
@@ -23,12 +23,12 @@ namespace TeoVincent.EA.Client.UnitTests
             // 1) arrange
             var listener = MockRepository.GenerateStub<IListener<Simple_MockEvent>>();
         
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
             var e = new Simple_MockEvent();
 
             // 2) act
-            eventAggregator.Publish(e);
-            eventAggregator.Publish(e);
+            internalEventAggregator.Publish(e);
+            internalEventAggregator.Publish(e);
             int expected = 2;
 
             // 3) assert
@@ -43,11 +43,11 @@ namespace TeoVincent.EA.Client.UnitTests
         {
             // 1) arrange
             var listener = new CallHandleCounter_MockListener();
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
             var notListeningEvent = new Another_MockEvent();
 
             // 2) act
-            eventAggregator.Publish(notListeningEvent);
+            internalEventAggregator.Publish(notListeningEvent);
 
             int actual = listener.RepeatTimes;
             int expected = 0;
@@ -62,13 +62,13 @@ namespace TeoVincent.EA.Client.UnitTests
         {
             // 1) arrange
             var listener = new CallHandleCounter_ForTwoEvents_MockListener();
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
             var simplyE = new Simple_MockEvent();
             var anotherE = new Another_MockEvent();
 
             // 2) act
-            eventAggregator.Publish(simplyE);
-            eventAggregator.Publish(anotherE);
+            internalEventAggregator.Publish(simplyE);
+            internalEventAggregator.Publish(anotherE);
             int actual = listener.RepeatTimesAnotherEvent;
             int expected = 1;
 
@@ -81,13 +81,13 @@ namespace TeoVincent.EA.Client.UnitTests
         {
             // 1) arrange
             var listener = new CallHandleCounter_ForTwoEvents_MockListener();
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
             var simplyE = new Simple_MockEvent();
             var anotherE = new Another_MockEvent();
 
             // 2) act
-            eventAggregator.Publish(simplyE);
-            eventAggregator.Publish(anotherE);
+            internalEventAggregator.Publish(simplyE);
+            internalEventAggregator.Publish(anotherE);
             int actual = listener.RepeatTimesSimplyEvent;
             int expected = 1;
 
@@ -100,13 +100,13 @@ namespace TeoVincent.EA.Client.UnitTests
         {
             // 1) arrange
             var listener = new CallHandleCounter_ForTwoEvents_MockListener();
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
             var simplyE = new Simple_MockEvent();
             var anotherE = new Another_MockEvent();
 
             // 2) act
-            eventAggregator.Publish(simplyE);
-            eventAggregator.Publish(anotherE);
+            internalEventAggregator.Publish(simplyE);
+            internalEventAggregator.Publish(anotherE);
             int actual = listener.RepeatTimesBothEvents;
             int expected = 2;
 

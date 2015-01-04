@@ -14,7 +14,7 @@ namespace TeoVincent.EA.Client
 	{
         private static readonly object objSyncRoot = new Object();
         private static volatile EventAggregator eaInstance;
-	    private readonly IEventAggregator eventAggregator;
+	    private readonly IInternalEventAggregator internalEventAggregator;
 	    private readonly EAClientHoster eaClientHoster;
         
 		public static EventAggregator Instance
@@ -35,8 +35,8 @@ namespace TeoVincent.EA.Client
 
 	    public EventAggregator()
 	    {
-	        eventAggregator = new InternalEventAggregator(new SynchronizationContext());
-            var publishSwitcher = new PublishSwitcher(eventAggregator);
+	        internalEventAggregator = new InternalEventAggregator(new SynchronizationContext());
+            var publishSwitcher = new PublishSwitcher(internalEventAggregator);
             IEventPublisher evnt = new EventPublisher(publishSwitcher);
             eaClientHoster = new EAClientHoster(evnt);
 	    }
@@ -85,32 +85,32 @@ namespace TeoVincent.EA.Client
 
 		public void LocalPublish<TEvent>(TEvent message) where TEvent : AEvent, new()
 		{
-            eventAggregator.Publish(message);
+            internalEventAggregator.Publish(message);
 		}
 
 		public void LocalPublish<TEvent>() where TEvent : AEvent, new()
 		{
-            eventAggregator.Publish<TEvent>();
+            internalEventAggregator.Publish<TEvent>();
 		}
 
 		public void Subscribe(IListener listener)
 		{
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
 		}
 
 		public void Unsubscribe(IListener listener)
 		{
-            eventAggregator.Unsubscribe(listener);
+            internalEventAggregator.Unsubscribe(listener);
 		}
 
 		public void Subscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
 		{
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
 		}
 
 		public void Unsubscribe<TEvent>(IListener<TEvent> listener) where TEvent : AEvent
 		{
-            eventAggregator.Unsubscribe(listener);
+            internalEventAggregator.Unsubscribe(listener);
 		}
 
 		#endregion IEventAggregator

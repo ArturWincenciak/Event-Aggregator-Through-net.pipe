@@ -8,12 +8,12 @@ namespace TeoVincent.EA.Client.UnitTests
 {
     public class HandleMethodTester
     {
-        private readonly IEventAggregator eventAggregator;
+        private readonly IInternalEventAggregator internalEventAggregator;
 
         public HandleMethodTester()
         {
             var syncContexts = new SynchronizationContext();
-            eventAggregator = new InternalEventAggregator(syncContexts);
+            internalEventAggregator = new InternalEventAggregator(syncContexts);
         }
 
         [Fact]
@@ -21,11 +21,11 @@ namespace TeoVincent.EA.Client.UnitTests
         {
             // 1) arrange
             var listener = new CallHandleChecker_MockListener();
-            eventAggregator.Subscribe(listener);
+            internalEventAggregator.Subscribe(listener);
             var e = new Simple_MockEvent();
 
             // 2) act
-            eventAggregator.Publish(e);
+            internalEventAggregator.Publish(e);
             bool actual = listener.WasCalled;
 
             // 3) assert

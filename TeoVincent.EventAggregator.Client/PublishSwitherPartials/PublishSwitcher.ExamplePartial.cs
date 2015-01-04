@@ -8,15 +8,15 @@ namespace TeoVincent.EA.Client.PublishSwitherPartials
 		public bool PublishExampleEvent(AEvent e)
 		{
 			if (e.ChildType == typeof(MyAnotherExampleEvent).Name)
-                eventAggregator.Publish((MyAnotherExampleEvent)e);
+                internalEventAggregator.Publish((MyAnotherExampleEvent)e);
 			else if (e.ChildType == typeof(MyExampleEvent).Name)
-                eventAggregator.Publish((MyExampleEvent)e);
+                internalEventAggregator.Publish((MyExampleEvent)e);
 			else if (e.ChildType == typeof(MyOneOtherExampleEvent).Name)
-                eventAggregator.Publish((MyOneOtherExampleEvent)e);
+                internalEventAggregator.Publish((MyOneOtherExampleEvent)e);
             else if (e.ChildType == typeof(TestTeoVincentEvent).Name)
-                eventAggregator.Publish((TestTeoVincentEvent)e);
+                internalEventAggregator.Publish((TestTeoVincentEvent)e);
             else if (e.ChildType == typeof(MyNewOwnEvent).Name)
-                eventAggregator.Publish((MyNewOwnEvent)e);
+                internalEventAggregator.Publish((MyNewOwnEvent)e);
 			else
 				return false;
 

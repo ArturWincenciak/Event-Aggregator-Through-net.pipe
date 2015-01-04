@@ -2,7 +2,7 @@
 
 namespace TeoVincent.EA.Common
 {
-    public interface IEventAggregator
+    public interface IInternalEventAggregator
     {
         /// <summary>
         /// Publish an event.
