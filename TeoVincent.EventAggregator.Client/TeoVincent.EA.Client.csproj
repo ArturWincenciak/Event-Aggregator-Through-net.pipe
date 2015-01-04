@@ -43,7 +43,7 @@
     <Compile Include="Exceptions\TheSameListenerAlreadySubscribedException.cs" />
     <Compile Include="InternalEventAggregator.cs" />
     <Compile Include="EventAggregator.cs" />
-    <Compile Include="EAClientHoster.cs" />
+    <Compile Include="EAServiceProxyHoster.cs" />
     <Compile Include="EAServiceProxy.cs" />
     <Compile Include="EventPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

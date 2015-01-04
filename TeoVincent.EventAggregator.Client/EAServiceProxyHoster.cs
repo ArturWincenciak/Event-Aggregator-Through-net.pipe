@@ -7,7 +7,7 @@ using TeoVincent.EA.Common.Service;
 
 namespace TeoVincent.EA.Client
 {
-    internal sealed class EAClientHoster
+    internal sealed class EAServiceProxyHoster
     {
         private static volatile EAServiceProxy eaServiceProxy;
         private static volatile string pluginName;
@@ -16,7 +16,7 @@ namespace TeoVincent.EA.Client
         private static readonly object objSyncRoot = new Object();
 	    private readonly IEventPublisher eventPublisher;
 
-	    public EAClientHoster(IEventPublisher eventPublisher)
+	    public EAServiceProxyHoster(IEventPublisher eventPublisher)
 	    {
 	        this.eventPublisher = eventPublisher;
 

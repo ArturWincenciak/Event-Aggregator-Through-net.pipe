@@ -13,14 +13,14 @@ namespace TeoVincent.EA.Client
     public sealed class EventAggregator : IEventAggregator
 	{
 	    private readonly IEventAggregator internalEventAggregator;
-	    private readonly EAClientHoster eaClientHoster;
+	    private readonly EAServiceProxyHoster eaServiceProxyHoster;
 
 	    public EventAggregator()
 	    {
 	        internalEventAggregator = new InternalEventAggregator(new SynchronizationContext());
             var publishSwitcher = new PublishSwitcher(internalEventAggregator);
             IEventPublisher evnt = new EventPublisher(publishSwitcher);
-            eaClientHoster = new EAClientHoster(evnt);
+            eaServiceProxyHoster = new EAServiceProxyHoster(evnt);
 	    }
 
 		/// <summary>
@@ -28,7 +28,7 @@ namespace TeoVincent.EA.Client
 		/// </summary>
 		public string GetData(int value)
 		{
-            return eaClientHoster.GetData(value);
+            return eaServiceProxyHoster.GetData(value);
 		}
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace TeoVincent.EA.Client
 		/// <param name="strName">Name of plugin. Have to be unique.</param>
 		public void SubscribePlugin(string strName)
 		{
-            eaClientHoster.SubscribePlugin(strName);
+            eaServiceProxyHoster.SubscribePlugin(strName);
 		}
 
 		/// <summary>
@@ -46,7 +46,7 @@ namespace TeoVincent.EA.Client
         /// <param name="strName">Name of plugin.</param>
 		public void UnsubscribePlugin(string strName)
 		{
-            eaClientHoster.UnsubscribePlugin(strName);
+            eaServiceProxyHoster.UnsubscribePlugin(strName);
 		}
 
 	    /// <summary>
@@ -56,7 +56,7 @@ namespace TeoVincent.EA.Client
 		/// <example>EventAggregator.Instance.GlobalPublish(new SomeEvent());</example>
 		public void GlobalPublish(AEvent e)
 		{
-            eaClientHoster.GlobalPublish(e);
+            eaServiceProxyHoster.GlobalPublish(e);
 		}
 
         #region IEventAggregator implementation
