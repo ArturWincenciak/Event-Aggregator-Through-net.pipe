@@ -48,9 +48,7 @@
     <Compile Include="EventPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublishSwitherPartials\IPublishSwitcher.cs" />
-    <Compile Include="PublishSwitherPartials\PublishSwitcher.ExamplePartial.cs" />
     <Compile Include="PublishSwitherPartials\PublishSwitcher.cs" />
-    <Compile Include="PublishSwitherPartials\PublishSwitcher.IVRPartial.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TeoVincent.EventAggregator.Common\TeoVincent.EA.Common.csproj">
