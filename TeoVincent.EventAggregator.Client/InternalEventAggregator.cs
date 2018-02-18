@@ -59,20 +59,22 @@ namespace TeoVincent.EA.Client
         /// implements interface parameterized this event type). This method
         /// parametrize automatically based on type of argument this method.
         /// </summary>
-        public void Publish<TEvent>(TEvent e) where TEvent : AEvent, new()
+        public bool Publish(AEvent e)
         {
             lock (syncLock)
             {
-				var typeOfEvent = typeof(TEvent);
+                var typeOfEvent = e.GetType();
 				
 				if (!listeners.ContainsKey(typeOfEvent))
-                    return;
+                    return false;
 
                 foreach (var listener in listeners[typeOfEvent])
                 {
-                    var typedReference = (IListener<TEvent>)listener;
-                    context.Send(state => typedReference.Handle(e), null);
+                    var method = typeof(IListener<>).MakeGenericType(typeOfEvent).GetMethod(nameof(IListener<object>.Handle));
+                    context.Send(state => method?.Invoke(listener, new object[] { e }), null);
                 }
+
+                return true;
             }
         }
 

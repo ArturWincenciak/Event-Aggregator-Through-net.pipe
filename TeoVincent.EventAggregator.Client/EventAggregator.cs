@@ -61,10 +61,10 @@ namespace TeoVincent.EA.Client
 
         #region IEventAggregator implementation
 
-        public void Publish<TEvent>(TEvent e) where TEvent : AEvent, new()
-        {
-            internalEventAggregator.Publish(e);
-	    }
+	    public bool Publish(AEvent e)
+	    {
+	        return internalEventAggregator.Publish(e);
+        }
 
 	    public void Publish<TEvent>() where TEvent : AEvent, new()
 	    {
