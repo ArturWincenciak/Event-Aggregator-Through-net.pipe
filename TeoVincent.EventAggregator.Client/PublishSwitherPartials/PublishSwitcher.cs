@@ -17,7 +17,6 @@ namespace TeoVincent.EA.Client.PublishSwitherPartials
         {
             try
             {
-                // TODO: Is the switcher necessary at all? 
                 return internalEventAggregator.Publish(e);
             }
             catch (Exception ex)
