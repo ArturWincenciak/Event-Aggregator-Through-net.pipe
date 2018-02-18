@@ -7,9 +7,8 @@ namespace TeoVincent.EA.Common
         /// <summary>
         /// Publish an event.
         /// </summary>
-        /// <typeparam name="TEvent">Type of event.</typeparam>
         /// <param name="e">Instance of event.</param>
-        void Publish<TEvent>(TEvent e) where TEvent : AEvent, new();
+        bool Publish(AEvent e);
 
         /// <summary>
         /// Publish event without sending instance of event object.

@@ -17,21 +17,7 @@ namespace TeoVincent.EA.Client.PublishSwitherPartials
         {
             try
             {
-                if (PublishExampleEvent(e))
-                    return true;
-
-                if (PublishIVREvent(e))
-                    return true;
-
-                // You should add next own separate implementation analogously 
-                // like above code and below comment...
-                //
-                // if(SomePublishEvent(e))
-                //     return true;
-                // ...
-
-                Console.WriteLine("NEVER HERE ! You could make a mistake during the cast event objects.");
-                return false;
+                return internalEventAggregator.Publish(e);
             }
             catch (Exception ex)
             {

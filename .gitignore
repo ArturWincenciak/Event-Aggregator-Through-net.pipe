@@ -231,3 +231,4 @@ $RECYCLE.BIN/
 *.DotSettings
 *.ncrunchproject
 *.ncrunchsolution
+/.vs/TeoVincent.EventAggregator2013/v15/Server/sqlite3
